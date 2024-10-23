@@ -6,7 +6,7 @@ def first():
     back_m.run_angle(200, 95)
     front_m.run(9999)
     motor.straight(350)
-    wait(2)
+    wait(4)
     motor.straight(-570)
     front_m.stop()
     back_m.run_angle(200, -105)
@@ -14,7 +14,7 @@ def first():
 
 def sec():
     ev3.speaker.beep()
-    motor.straight(-360)
+    motor.straight(-355)
     turn_acc_change(90, rate=50)
     motor.straight(-275)
     for i in range(2):
@@ -22,15 +22,16 @@ def sec():
         motor.straight(-50)
     motor.straight(130)
     motor.turn(-100)
-    motor.straight(-660)
-    motor.turn(100)
+    motor.straight(-630)
+    motor.turn(105)
     motor.straight(500)
     motor.drive(200, 0)
     wait(1)
     for _ in range(2):
         motor.straight(100)
         motor.straight(-50)
-    motor.straight(-180)
-    motor.turn(90)
+    motor.straight(-165) # отъезд от кортофли
+    motor.turn(-90)
+    motor.straight(-1000)
 
-sec()
+first()
