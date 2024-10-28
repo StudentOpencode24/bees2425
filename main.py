@@ -7,10 +7,11 @@ def first():
     front_m.run(9999)
     motor.straight(350)
     wait(4)
-    motor.straight(-570)
+    move_speed_change(-150,40)
+    motor.straight(-420)
     front_m.stop()
     back_m.run_angle(200, -105)
-    motor.straight(218)
+    motor.straight(234)
 
 def sec():
     ev3.speaker.beep()
@@ -33,5 +34,14 @@ def sec():
     motor.straight(-165) # отъезд от кортофли
     motor.turn(-90)
     motor.straight(-1000)
+
+def third():
+    ev3.speaker.beep()
+    motor.straight(250)
+    motor.turn(90)
+    motor.straight(100)
+    back_m.run_angle(200, 95)
+    motor.turn(-90)
+    motor.straight(300)
 
 first()
