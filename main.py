@@ -11,37 +11,58 @@ def first():
     motor.straight(-420)
     front_m.stop()
     back_m.run_angle(200, -105)
-    motor.straight(234)
+    motor.straight(260)
 
 def sec():
+    ev3.speaker.beep()
+    motor.straight(150)
+    motor.reset()
+    motor.drive(290, -90)
+    while motor.angle() > -90:
+       pass     
+    motor.stop()
+    motor.settings(straight_acceleration = 1000)
+    motor.straight(500)
+    for _ in range(2):
+        motor.straight(150)
+        motor.straight(-40)
+    motor.straight(-150)
+    move_speed_change(400, 9999)
+    motor.straight(-280)
+    motor.turn(90)
+    motor.straight(-400)
+
+def third():
+    motor.straight(-10)
+    front_m.run_angle(-200, -110,wait = 0)
+    motor.turn(90)
+    move_speed_change(150, 100)
+    back_m.run_angle(900, 90)
+    motor.turn(-90)
+    motor.straight(-950)
+
+def fourth():
     ev3.speaker.beep()
     motor.straight(-355)
     turn_acc_change(90, rate=50)
     motor.straight(-275)
-    for i in range(2):
+    for _ in range(2):
         motor.straight(30)
         motor.straight(-50)
     motor.straight(130)
     motor.turn(-100)
-    motor.straight(-630)
+    motor.straight(-620)
     motor.turn(105)
     motor.straight(500)
-    motor.drive(200, 0)
+    motor.drive(200, 0) #подъезд к картофелю
     wait(1)
     for _ in range(2):
         motor.straight(100)
         motor.straight(-50)
-    motor.straight(-165) # отъезд от кортофли
+    motor.straight(-160) # отъезд от кортофли
     motor.turn(-90)
     motor.straight(-1000)
-
-def third():
-    ev3.speaker.beep()
-    motor.straight(250)
-    motor.turn(90)
-    motor.straight(100)
-    back_m.run_angle(200, 95)
-    motor.turn(-90)
-    motor.straight(300)
-
 first()
+#sec()
+#third()
+#fourth()
