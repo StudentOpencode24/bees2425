@@ -1,6 +1,6 @@
 #!/usr/bin/env pybricks-micropython
 from hardware import *
-
+click = 0
 def first():
     ev3.speaker.beep()
     back_m.run_angle(200, 95)
@@ -62,7 +62,27 @@ def fourth():
     motor.straight(-160) # отъезд от кортофли
     motor.turn(-90)
     motor.straight(-1000)
-first()
-#sec()
-#third()
-#fourth()
+a = [first, sec, third, fourth]
+while not Button.CENTER in ev3.buttons.pressed():
+    if Button.LEFT in ev3.buttons.pressed():
+        ev3.screen.clear()
+        click += 1
+        if click >= len(a):
+            click = 0
+        ev3.screen.draw_text(30, 50, str(click))
+        while Button.LEFT in ev3.buttons.pressed():
+            pass
+    if Button.RIGHT in ev3.buttons.pressed():
+        ev3.screen.clear()
+        click -= 1
+        if click < 0:
+            click = len(a) - 1
+        ev3.screen.draw_text(30, 50, str(click))
+        while Button.RIGHT in ev3.buttons.pressed():
+            pass
+    wait(100)
+
+if Button.CENTER in ev3.buttons.pressed():
+    ev3.screen.draw_text(30, 50, click)
+    a[click]()
+

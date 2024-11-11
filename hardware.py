@@ -11,7 +11,6 @@ ev3 = EV3Brick()
 
 
 # Write your program here.
-
 lmot = Motor(Port.B, gears=[28, 20])
 rmot = Motor(Port.C, gears=[28, 20])
 front_m = Motor(Port.A, gears=[12, 20])
