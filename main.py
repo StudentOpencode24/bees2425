@@ -1,7 +1,6 @@
 #!/usr/bin/env pybricks-micropython
 from hardware import *
-click = 0
-def first():
+def one():
     ev3.speaker.beep()
     back_m.run_angle(200, 95)
     front_m.run(9999)
@@ -13,26 +12,26 @@ def first():
     back_m.run_angle(200, -105)
     motor.straight(260)
 
-def sec():
+def two():
     ev3.speaker.beep()
     motor.straight(150)
     motor.reset()
-    motor.drive(290, -90)
-    while motor.angle() > -90:
+    motor.drive(290, -88)
+    while motor.angle() > -93:
        pass     
     motor.stop()
-    motor.settings(straight_acceleration = 1000)
-    motor.straight(500)
-    for _ in range(2):
-        motor.straight(150)
-        motor.straight(-40)
-    motor.straight(-150)
-    move_speed_change(400, 9999)
-    motor.straight(-280)
+
+    move_speed_change(800, 9999)
+    for _ in range(4):
+        move_speed_change(100, 9999, 999)
+        move_speed_change(-50, 9999, 999)
+    #motor.straight(-150)
+    #move_speed_change(500, 9999, 999)
+    motor.straight(-100)
     motor.turn(90)
     motor.straight(-400)
 
-def third():
+def three():
     motor.straight(-10)
     front_m.run_angle(-200, -110,wait = 0)
     motor.turn(90)
@@ -41,7 +40,7 @@ def third():
     motor.turn(-90)
     motor.straight(-950)
 
-def fourth():
+def four():
     ev3.speaker.beep()
     motor.straight(-355)
     turn_acc_change(90, rate=50)
@@ -62,27 +61,11 @@ def fourth():
     motor.straight(-160) # отъезд от кортофли
     motor.turn(-90)
     motor.straight(-1000)
-a = [first, sec, third, fourth]
-while not Button.CENTER in ev3.buttons.pressed():
-    if Button.LEFT in ev3.buttons.pressed():
-        ev3.screen.clear()
-        click += 1
-        if click >= len(a):
-            click = 0
-        ev3.screen.draw_text(30, 50, str(click))
-        while Button.LEFT in ev3.buttons.pressed():
-            pass
-    if Button.RIGHT in ev3.buttons.pressed():
-        ev3.screen.clear()
-        click -= 1
-        if click < 0:
-            click = len(a) - 1
-        ev3.screen.draw_text(30, 50, str(click))
-        while Button.RIGHT in ev3.buttons.pressed():
-            pass
-    wait(100)
+def five():
+    motor.straight(100)
+    motor.turn(100)
+    motor.straight(50)
+    motor.turn(-100)
+    motor.straight(200)
 
-if Button.CENTER in ev3.buttons.pressed():
-    ev3.screen.draw_text(30, 50, click)
-    a[click]()
-
+start([one, two, three, four, five])
