@@ -62,10 +62,14 @@ def four():
     motor.turn(-90)
     motor.straight(-1000)
 def five():
+    motor.straight(-90)
     motor.straight(100)
-    motor.turn(100)
-    motor.straight(50)
-    motor.turn(-100)
-    motor.straight(200)
+    motor.turn(-10)
+    motor.straight(460)
+    motor.turn(10)
+    motor.straight(170)
+    motor.straight(-400)
+    motor.turn(-70)
+    motor.straight(-200)
 
 start([one, two, three, four, five])
