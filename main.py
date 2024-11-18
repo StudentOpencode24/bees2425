@@ -61,15 +61,27 @@ def four():
     motor.straight(-160) # отъезд от кортофли
     motor.turn(-90)
     motor.straight(-1000)
-def five():
-    motor.straight(-90)
-    motor.straight(100)
-    motor.turn(-10)
-    motor.straight(460)
-    motor.turn(10)
-    motor.straight(170)
-    motor.straight(-400)
-    motor.turn(-70)
-    motor.straight(-200)
 
-start([one, two, three, four, five])
+def five():
+    back_m.run_angle(300  ,180)
+
+def six():
+    motor.straight(-20)
+    motor.straight(200)
+    back_m.run_angle(300, -110,wait = 0)
+    motor.turn(-15)
+    motor.straight(210)
+    motor.turn(15)
+    motor.straight(290) #подъезд к винограду
+    motor.straight(-130)
+    back_m.run_angle(200, -100)
+    motor.turn(90)
+    motor.straight(-90)
+    back_m.run_angle(300, 100)
+    motor.straight(-600)
+    motor.turn(100)
+    motor.straight(500)
+    # motor.turn(100)
+
+
+start([one, two, three, four, five, six])
