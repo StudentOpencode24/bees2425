@@ -33,12 +33,13 @@ def two():
 
 def three():
     ev3.speaker.beep()
-    motor.straight(250)
+    back_m.run_angle(200, -110,wait = 0)
+    motor.straight(710)
     motor.turn(90)
     motor.straight(100)
     back_m.run_angle(200, 95)
     motor.turn(-90)
-    motor.straight(300)
+    motor.straight(-710)
     # motor.straight(-10)
     # front_m.run_angle(-200, -110,wait = 0)
     # motor.turn(90)
@@ -49,23 +50,23 @@ def three():
 
 def four():
     ev3.speaker.beep()
-    motor.straight(-355)
-    turn_acc_change(90, rate=50)
-    motor.straight(-275)
+    motor.straight(-358)
+    turn_acc_change(88, rate=1000)
+    motor.straight(-273)
     for _ in range(2):
         motor.straight(30)
-        motor.straight(-50)
+        motor.straight(-50) #подъезд к зерну
     motor.straight(130)
     motor.turn(-100)
     motor.straight(-620)
     motor.turn(105)
-    motor.straight(500)
+    motor.straight(470)
     motor.drive(200, 0) #подъезд к картофелю
     wait(1)
     for _ in range(2):
-        motor.straight(100)
-        motor.straight(-50)
-    motor.straight(-160) # отъезд от кортофли
+        motor.straight(150)
+        motor.straight(-100)
+    motor.straight(-100) # отъезд от кортофли
     motor.turn(-90)
     motor.straight(-1000)
 
