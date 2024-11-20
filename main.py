@@ -22,7 +22,7 @@ def two():
     motor.stop()
 
     move_speed_change(800, 9999)
-    for _ in range(4):
+    for _ in range(2):
         move_speed_change(100, 9999, 999)
         move_speed_change(-50, 9999, 999)
     #motor.straight(-150)
@@ -32,13 +32,20 @@ def two():
     motor.straight(-400)
 
 def three():
-    motor.straight(-10)
-    front_m.run_angle(-200, -110,wait = 0)
+    ev3.speaker.beep()
+    motor.straight(250)
     motor.turn(90)
-    move_speed_change(150, 100)
-    back_m.run_angle(900, 90)
+    motor.straight(100)
+    back_m.run_angle(200, 95)
     motor.turn(-90)
-    motor.straight(-950)
+    motor.straight(300)
+    # motor.straight(-10)
+    # front_m.run_angle(-200, -110,wait = 0)
+    # motor.turn(90)
+    # move_speed_change(150, 100)
+    # back_m.run_angle(900, 90)
+    # motor.turn(-90)
+    # motor.straight(-950)
 
 def four():
     ev3.speaker.beep()
@@ -63,25 +70,36 @@ def four():
     motor.straight(-1000)
 
 def five():
-    back_m.run_angle(300  ,180)
+    motor.straight(-90)
+    motor.straight(100)
+    motor.turn(-10)
+    motor.straight(460)
+    motor.turn(10)
+    motor.straight(170)
+    motor.straight(-400)
+    motor.turn(-70)
+    motor.straight(-200)
 
 def six():
     motor.straight(-20)
-    motor.straight(200)
-    back_m.run_angle(300, -110,wait = 0)
-    motor.turn(-15)
-    motor.straight(210)
-    motor.turn(15)
-    motor.straight(290) #подъезд к винограду
-    motor.straight(-130)
-    back_m.run_angle(200, -100)
+    motor.straight(450)
+    motor.turn(-35)
+    motor.straight(88)
+    motor.turn(35)
+    motor.straight(180) #подъезд к винограду
+    motor.straight(-150)
     motor.turn(90)
     motor.straight(-90)
-    back_m.run_angle(300, 100)
-    motor.straight(-600)
-    motor.turn(100)
-    motor.straight(500)
-    # motor.turn(100)
+    back_m.run_angle(300, -125)
+    motor.stop() 
+    motor.reset()
+    motor.drive(1000, 85)
+    while motor.angle() < 145:
+       pass  
+    motor.stop() 
+    motor.turn(30)
+def s():
+    front_m.run_angle(350, -125)
 
 
-start([one, two, three, four, five, six])
+start([one, two, three, four, five, six, s])
