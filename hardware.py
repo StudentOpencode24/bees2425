@@ -25,6 +25,7 @@ straight_acceleration = 500
 motor.settings(straight_speed=1000, straight_acceleration=straight_acceleration, turn_rate=200, turn_acceleration=turn_acceleration)
 
 
+
 def turn_acc_change(ang, rate = 1000, acc = turn_acceleration):
     motor.stop()
     motor.settings(turn_rate=rate, turn_acceleration=acc)

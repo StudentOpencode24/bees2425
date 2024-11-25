@@ -97,7 +97,24 @@ def six():
     motor.straight(300)
 
 def seven():
-    pass
+    back_m.run_angle(500, -10, wait = 0)
+    motor.straight(100)
+    gyro.reset_angle(0)
+    while abs(gyro.angle()) < 30:
+        motor.drive(0, 100)
+    motor.stop()
+    motor.straight(430)
+    gyro.reset_angle(0)
+    while abs(gyro.angle()) < 26:
+        motor.drive(0, -100)
+    motor.stop()
+    back_m.run_angle(800, 30, wait= 0)
+    motor.straight(-500)
+    motor.straight(350)
+    motor.turn(55)
+    motor.straight(-550)
 
+def e():
+    motor.straight()
 
 start([one, two, three, four, five, six, seven])
