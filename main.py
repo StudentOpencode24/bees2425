@@ -1,5 +1,6 @@
 #!/usr/bin/env pybricks-micropython
 from hardware import *
+
 def one():
     ev3.speaker.beep()
     back_m.run_angle(200, 95)
@@ -71,24 +72,13 @@ def four():
     motor.straight(-1000)
 
 def five():
-    motor.straight(-90)
-    motor.straight(100)
-    motor.turn(-10)
-    motor.straight(460)
-    motor.turn(10)
-    motor.straight(170)
-    motor.straight(-400)
-    motor.turn(-70)
-    motor.straight(-200)
-
-def six():
     motor.straight(-20)
     motor.straight(450)
     motor.turn(-35)
     motor.straight(88)
     motor.turn(35)
     motor.straight(180) #подъезд к винограду
-    motor.straight(-150)
+    motor.straight(-160)
     motor.turn(90)
     motor.straight(-90)
     back_m.run_angle(300, -125)
@@ -99,8 +89,15 @@ def six():
        pass  
     motor.stop() 
     motor.turn(30)
-def s():
-    front_m.run_angle(350, -125)
+
+def six():
+    motor.straight(-80)
+    back_m.run_angle(500, 215)
+    motor.turn(-20)
+    motor.straight(300)
+
+def seven():
+    pass
 
 
-start([one, two, three, four, five, six, s])
+start([one, two, three, four, five, six, seven])

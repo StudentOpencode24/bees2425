@@ -16,6 +16,7 @@ rmot = Motor(Port.C, gears=[28, 20])
 front_m = Motor(Port.A, gears=[12, 20])
 back_m = Motor(Port.D, gears=[12, 20])
 motor = DriveBase(lmot, rmot, 49.5, 119)
+gyro = GyroSensor(Port.S3)
 
 turn_acceleration = 500
 straight_acceleration = 500
@@ -50,6 +51,13 @@ def draw_digits(value):
     sig_space = 6
  
     def show_sigment(num, digit): 
+        #     
+        #  0 ——— 
+        # 5 |   | 1
+        #  3 ———
+        # 4 |   | 2
+        #  6 ———
+        #  
         global ev3
         x_offset = 178 - (disp_offset + (sig_len + sig_width * 2) * (digit + 1) + dig_space * digit) 
         y_offset = 0 + disp_offset 
