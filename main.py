@@ -5,12 +5,12 @@ def one():
     ev3.speaker.beep()
     back_m.run_angle(200, 95)
     front_m.run(9999)
-    motor.straight(350)
+    motor.straight(350) #подъезд к теплице
     wait(4)
     move_speed_change(-150,40)
     motor.straight(-420)
     front_m.stop()
-    back_m.run_angle(200, -105)
+    back_m.run_angle(200, -105) #сбор плуга и скотча
     motor.straight(260)
 
 def two():
@@ -22,7 +22,7 @@ def two():
        pass     
     motor.stop()
 
-    move_speed_change(800, 9999)
+    move_speed_change(800, 9999) # подъезд к яблокам
     for _ in range(2):
         move_speed_change(100, 9999, 999)
         move_speed_change(-50, 9999, 999)
@@ -37,7 +37,7 @@ def three():
     back_m.run_angle(200, -110,wait = 0)
     motor.straight(710)
     motor.turn(90)
-    motor.straight(100)
+    motor.straight(100) # подъезд к пшенице
     back_m.run_angle(200, 95)
     motor.turn(-90)
     motor.straight(-710)
@@ -68,7 +68,7 @@ def four():
         motor.straight(150)
         motor.straight(-100)
     motor.straight(-100) # отъезд от кортофли
-    motor.turn(-90)
+    motor.turn(-90) #сбор винограда
     motor.straight(-1000)
 
 def five():
@@ -80,7 +80,7 @@ def five():
     motor.straight(180) #подъезд к винограду
     motor.straight(-160)
     motor.turn(90)
-    motor.straight(-90)
+    motor.straight(-90) # подъезд к трактору
     back_m.run_angle(300, -125)
     motor.stop() 
     motor.reset()
@@ -92,7 +92,7 @@ def five():
 
 def six():
     motor.straight(-80)
-    back_m.run_angle(500, 215)
+    back_m.run_angle(500, 215) # сбор рамки скотча
     motor.turn(-20)
     motor.straight(300)
 
@@ -100,7 +100,7 @@ def seven():
     back_m.run_angle(500, -10, wait = 0)
     motor.straight(100)
     gyro.reset_angle(0)
-    while abs(gyro.angle()) < 30:
+    while abs(gyro.angle()) < 30: # поворот по гироскопу на 30
         motor.drive(0, 100)
     motor.stop()
     motor.straight(430)
@@ -109,12 +109,20 @@ def seven():
         motor.drive(0, -100)
     motor.stop()
     back_m.run_angle(800, 30, wait= 0)
-    motor.straight(-500)
+    motor.straight(-500) # подъезд к скотчу
     motor.straight(350)
     motor.turn(55)
     motor.straight(-550)
 
-def e():
-    motor.straight()
+def eight():
+    motor.straight(-10)
+    motor.straight(1000)
+    motor.turn(45)
+    motor.straight(370)
+    motor.turn(50)
+    motor.straight(300) # контейнеры в овощебаза
+    motor.straight(-400)
+    motor.turn(-90)
+    motor.straight(-150) # иновационный проект
 
-start([one, two, three, four, five, six, seven])
+start([one, two, three, four, five, six, seven, eight])

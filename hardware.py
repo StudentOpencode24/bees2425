@@ -115,16 +115,16 @@ def start(races):
             if Button.LEFT in ev3.buttons.pressed():
                 ev3.screen.clear()
                 click -= 1
-                if click > len(races):
-                    click = 1
+                if click < 1:
+                    click = len(races)
                 draw_digits(click)
                 while Button.LEFT in ev3.buttons.pressed():
                     pass
             if Button.RIGHT in ev3.buttons.pressed():
                 ev3.screen.clear()
                 click += 1
-                if click < 1:
-                    click = len(races)
+                if click > len(races):
+                    click = 1
                 draw_digits(click)
                 while Button.RIGHT in ev3.buttons.pressed():
                     pass
