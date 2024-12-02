@@ -1,6 +1,6 @@
 #!/usr/bin/env pybricks-micropython
 from hardware import *
-
+#на глаз напротив теплицы
 def one():
     ev3.speaker.beep()
     back_m.run_angle(200, 95)
@@ -12,8 +12,8 @@ def one():
     front_m.stop()
     back_m.run_angle(200, -105) #сбор плуга и скотча
     motor.straight(260)
-
-def two():
+    
+def three():
     ev3.speaker.beep()
     motor.straight(150)
     motor.reset()
@@ -32,44 +32,47 @@ def two():
     motor.turn(90)
     motor.straight(-400)
 
-def three():
+def two():
     ev3.speaker.beep()
-    back_m.run_angle(200, -110,wait = 0)
+    motor.straight(-10)
+    back_m.run_angle(100, -90,wait = 0)
     motor.straight(710)
     motor.turn(90)
     motor.straight(100) # подъезд к пшенице
     back_m.run_angle(200, 95)
     motor.turn(-90)
-    motor.straight(-710)
-    # motor.straight(-10)
-    # front_m.run_angle(-200, -110,wait = 0)
-    # motor.turn(90)
-    # move_speed_change(150, 100)
-    # back_m.run_angle(900, 90)
-    # motor.turn(-90)
-    # motor.straight(-950)
+    motor.straight(300)
+    motor.turn(-97)
+    motor.straight(-216) #подъезд к колхозу
+    front_m.run_angle(500, 1200)
+    motor.straight(-20)
+    motor.straight(250) # отъезд от колхоза
+    motor.turn(90)
+    motor.straight(-900)
+
+
 
 def four():
     ev3.speaker.beep()
-    motor.straight(-358)
-    turn_acc_change(88, rate=1000)
-    motor.straight(-273)
+    motor.straight(358)
+    turn_acc_change(-88, rate=1000)
+    motor.straight(273)
     for _ in range(2):
-        motor.straight(30)
-        motor.straight(-50) #подъезд к зерну
-    motor.straight(130)
-    motor.turn(-100)
-    motor.straight(-620)
-    motor.turn(105)
-    motor.straight(470)
-    motor.drive(200, 0) #подъезд к картофелю
+        motor.straight(-30)
+        motor.straight(50) #подъезд к зерну
+    motor.straight(-130)
+    motor.turn(100)
+    motor.straight(620)
+    motor.turn(-105)
+    motor.straight(-470)
+    motor.drive(-100, 0) #подъезд к картофелю
     wait(1)
     for _ in range(2):
-        motor.straight(150)
-        motor.straight(-100)
-    motor.straight(-100) # отъезд от кортофли
-    motor.turn(-90) #сбор винограда
-    motor.straight(-1000)
+        motor.straight(-150)
+        motor.straight(100)
+    motor.straight(100) # отъезд от кортофли
+    motor.turn(90) #сбор винограда
+    motor.straight(1100)
 
 def five():
     motor.straight(-20)
@@ -78,7 +81,7 @@ def five():
     motor.straight(88)
     motor.turn(35)
     motor.straight(180) #подъезд к винограду
-    motor.straight(-160)
+    motor.straight(-145)
     motor.turn(90)
     motor.straight(-90) # подъезд к трактору
     back_m.run_angle(300, -125)
@@ -125,4 +128,12 @@ def eight():
     motor.turn(-90)
     motor.straight(-150) # иновационный проект
 
-start([one, two, three, four, five, six, seven, eight])
+def f():
+    front_m.run_angle(200)
+
+start([one, two, three, four, five, six, seven, eight, f])
+click = 0
+
+
+# Добавить поворот на забирании напралющей для рулонника
+# Добавить поврот на отвозе рулоннника
