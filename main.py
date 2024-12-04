@@ -17,7 +17,7 @@ def three():
     ev3.speaker.beep()
     motor.straight(150)
     motor.reset()
-    motor.drive(290, -88)
+    motor.drive(200, -88)
     while motor.angle() > -93:
        pass     
     motor.stop()
@@ -39,31 +39,31 @@ def two():
     motor.straight(710)
     motor.turn(90)
     motor.straight(100) # подъезд к пшенице
-    back_m.run_angle(200, 95)
+    back_m.run_angle(100, 90)
     motor.turn(-90)
     motor.straight(300)
     motor.turn(-97)
-    motor.straight(-216) #подъезд к колхозу
+    motor.straight(-180) #подъезд к колхозу
     front_m.run_angle(500, 1200)
     motor.straight(-20)
     motor.straight(250) # отъезд от колхоза
     motor.turn(90)
-    motor.straight(-900)
+    motor.straight(-980)
 
 
 
 def four():
     ev3.speaker.beep()
     motor.straight(358)
-    turn_acc_change(-88, rate=1000)
+    turn_acc_change(90, rate=1000)
     motor.straight(273)
     for _ in range(2):
         motor.straight(-30)
         motor.straight(50) #подъезд к зерну
     motor.straight(-130)
-    motor.turn(100)
+    motor.turn(-100)
     motor.straight(620)
-    motor.turn(-105)
+    motor.turn(105)
     motor.straight(-470)
     motor.drive(-100, 0) #подъезд к картофелю
     wait(1)
@@ -71,7 +71,7 @@ def four():
         motor.straight(-150)
         motor.straight(100)
     motor.straight(100) # отъезд от кортофли
-    motor.turn(90) #сбор винограда
+    motor.turn(-90) #сбор винограда
     motor.straight(1100)
 
 def five():
@@ -94,10 +94,10 @@ def five():
     motor.turn(30)
 
 def six():
-    motor.straight(-80)
+    motor.straight(-100)
     back_m.run_angle(500, 215) # сбор рамки скотча
-    motor.turn(-20)
-    motor.straight(300)
+    motor.turn(-30)
+    motor.straight(380)
 
 def seven():
     back_m.run_angle(500, -10, wait = 0)
@@ -108,7 +108,7 @@ def seven():
     motor.stop()
     motor.straight(430)
     gyro.reset_angle(0)
-    while abs(gyro.angle()) < 26:
+    while abs(gyro.angle()) < 24:
         motor.drive(0, -100)
     motor.stop()
     back_m.run_angle(800, 30, wait= 0)
