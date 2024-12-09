@@ -23,9 +23,9 @@ def three():
     motor.stop()
 
     move_speed_change(800, 9999) # подъезд к яблокам
-    for _ in range(2):
-        move_speed_change(100, 9999, 999)
-        move_speed_change(-50, 9999, 999)
+    for _ in range(1):
+        move_speed_change(200, 9999, 999)
+        move_speed_change(-150, 9999, 999)
     #motor.straight(-150)
     #move_speed_change(500, 9999, 999)
     motor.straight(-100)
@@ -36,15 +36,16 @@ def two():
     ev3.speaker.beep()
     motor.straight(-10)
     back_m.run_angle(100, -90,wait = 0)
-    motor.straight(710)
+    motor.straight(745)
     motor.turn(90)
     motor.straight(100) # подъезд к пшенице
     back_m.run_angle(100, 90)
+    motor.straight(-15)
     motor.turn(-90)
-    motor.straight(300)
-    motor.turn(-97)
-    motor.straight(-180) #подъезд к колхозу
-    front_m.run_angle(500, 1200)
+    motor.straight(260)
+    motor.turn(-90)
+    motor.straight(-240) #подъезд к колхозу
+    front_m.run_angle(1300, 1700)
     motor.straight(-20)
     motor.straight(250) # отъезд от колхоза
     motor.turn(90)
@@ -87,11 +88,11 @@ def five():
     back_m.run_angle(300, -125)
     motor.stop() 
     motor.reset()
-    motor.drive(1000, 85)
+    motor.drive(1000, 80)
     while motor.angle() < 145:
        pass  
     motor.stop() 
-    motor.turn(30)
+    motor.turn(60)
 
 def six():
     motor.straight(-100)
@@ -108,7 +109,7 @@ def seven():
     motor.stop()
     motor.straight(430)
     gyro.reset_angle(0)
-    while abs(gyro.angle()) < 24:
+    while abs(gyro.angle()) < 30:
         motor.drive(0, -100)
     motor.stop()
     back_m.run_angle(800, 30, wait= 0)
@@ -129,9 +130,12 @@ def eight():
     motor.straight(-150) # иновационный проект
 
 def f():
-    front_m.run_angle(200)
+    motor.straight(280)
+    motor.straight(-300)
 
-start([one, two, three, four, five, six, seven, eight, f])
+
+
+start([one, two, three, four, five, six, seven, f, eight])
 click = 0
 
 

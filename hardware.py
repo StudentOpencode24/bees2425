@@ -39,7 +39,7 @@ def move_speed_change(distance, speed=1000, acc=straight_acceleration):
     motor.settings(straight_speed=speed, straight_acceleration=acc)
     motor.straight(distance)
     motor.stop()
-    motor.settings(straight_speed=1000, straight_acceleration = straight_acceleration)
+    motor.settings(straight_speed=1400, straight_acceleration = straight_acceleration)
 
 
 def draw_digits(value): 
