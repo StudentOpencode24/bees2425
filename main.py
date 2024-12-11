@@ -17,8 +17,8 @@ def three():
     ev3.speaker.beep()
     motor.straight(150)
     motor.reset()
-    motor.drive(200, -88)
-    while motor.angle() > -93:
+    motor.drive(200, -80)
+    while motor.angle() > -90:
        pass     
     motor.stop()
 
