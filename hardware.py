@@ -19,7 +19,7 @@ motor = DriveBase(lmot, rmot, 49.5, 119)
 gyro = GyroSensor(Port.S3)
 
 turn_acceleration = 500
-straight_acceleration = 500
+straight_acceleration = 600
 
 
 motor.settings(straight_speed=1000, straight_acceleration=straight_acceleration, turn_rate=200, turn_acceleration=turn_acceleration)

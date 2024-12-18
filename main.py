@@ -28,7 +28,7 @@ def three():
         move_speed_change(-150, 9999, 999)
     #motor.straight(-150)
     #move_speed_change(500, 9999, 999)
-    motor.straight(-100)
+    motor.straight(-150)
     motor.turn(90)
     motor.straight(-400)
 
@@ -113,7 +113,7 @@ def seven():
         motor.drive(0, -100)
     motor.stop()
     back_m.run_angle(800, 30, wait= 0)
-    motor.straight(-500) # подъезд к скотчу
+    move_speed_change(-500, 250, 1000) # подъезд к скотчу
     motor.straight(350)
     motor.turn(55)
     motor.straight(-550)
