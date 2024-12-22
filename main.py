@@ -42,15 +42,7 @@ def two():
     back_m.run_angle(100, 90)
     motor.straight(-15)
     motor.turn(-90)
-    motor.straight(260)
-    motor.turn(-90)
-    motor.straight(-240) #подъезд к колхозу
-    front_m.run_angle(1300, 1700)
-    motor.straight(-20)
-    motor.straight(250) # отъезд от колхоза
-    motor.turn(90)
-    motor.straight(-980)
-
+    motor.straight(-900)
 
 
 def four():
@@ -82,7 +74,7 @@ def five():
     motor.straight(88)
     motor.turn(35)
     motor.straight(180) #подъезд к винограду
-    motor.straight(-145)
+    motor.straight(-150)
     motor.turn(90)
     motor.straight(-90) # подъезд к трактору
     back_m.run_angle(300, -125)
@@ -101,8 +93,7 @@ def six():
     motor.straight(380)
 
 def seven():
-    back_m.run_angle(500, -10, wait = 0)
-    motor.straight(100)
+    motor.straight(97)
     gyro.reset_angle(0)
     while abs(gyro.angle()) < 30: # поворот по гироскопу на 30
         motor.drive(0, 100)
@@ -113,7 +104,7 @@ def seven():
         motor.drive(0, -100)
     motor.stop()
     back_m.run_angle(800, 30, wait= 0)
-    move_speed_change(-500, 250, 1000) # подъезд к скотчу
+    move_speed_change(-500, 500, 1000) # подъезд к скотчу
     motor.straight(350)
     motor.turn(55)
     motor.straight(-550)
@@ -125,9 +116,12 @@ def eight():
     motor.straight(370)
     motor.turn(50)
     motor.straight(300) # контейнеры в овощебаза
-    motor.straight(-400)
-    motor.turn(-90)
-    motor.straight(-150) # иновационный проект
+    motor.straight(-160)
+    motor.turn(-92)
+    motor.straight(-550) #убийство комбайна
+    motor.straight(350) 
+    motor.turn(90)
+    motor.straight(-80) #ин. проект
 
 def f():
     motor.straight(280)
