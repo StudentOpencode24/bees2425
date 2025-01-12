@@ -108,7 +108,7 @@ def draw_digits(value):
  
     
 def start(races):
-    click = 0
+    click = 1
     draw_digits(click)
     while True:
         while not Button.CENTER in ev3.buttons.pressed():
@@ -132,3 +132,5 @@ def start(races):
 
         if Button.CENTER in ev3.buttons.pressed():
             races[click - 1]()
+            click += 1
+            draw_digits(click)
