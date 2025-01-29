@@ -4,8 +4,7 @@ from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
 from pybricks.parameters import Port, Stop, Direction, Button, Color
 from pybricks.tools import wait, StopWatch, DataLog#, multitask, run_task
 from pybricks.robotics import DriveBase
-from pybricks.media.ev3dev import SoundFile, ImageFile
-from pybricks.parameters import Color
+from pybricks.media.ev3dev import SoundFile, ImageFile  
 # Create your objects here.
 ev3 = EV3Brick()
 
@@ -109,28 +108,51 @@ def draw_digits(value):
     
 def start(races):
     click = 1
-    draw_digits(click)
+    podzaezd = 0
+    draw_digits(click * 10 + podzaezd)
     while True:
         while not Button.CENTER in ev3.buttons.pressed():
             if Button.LEFT in ev3.buttons.pressed():
                 ev3.screen.clear()
+                podzaezd = 0
                 click -= 1
                 if click < 1:
                     click = len(races)
                 draw_digits(click)
+                draw_digits(click * 10 + podzaezd)
                 while Button.LEFT in ev3.buttons.pressed():
                     pass
             if Button.RIGHT in ev3.buttons.pressed():
                 ev3.screen.clear()
+                podzaezd = 0
                 click += 1
                 if click > len(races):
                     click = 1
-                draw_digits(click)
+                draw_digits(click * 10 + podzaezd)
                 while Button.RIGHT in ev3.buttons.pressed():
+                    pass
+            if Button.UP in ev3.buttons.pressed():
+                ev3.screen.clear()
+                podzaezd += 1
+                if podzaezd > len(races[click - 1]) - 1:
+                    podzaezd = 0
+                draw_digits(click * 10 + podzaezd)
+                while Button.UP in ev3.buttons.pressed():
+                    pass
+            if Button.DOWN in ev3.buttons.pressed():
+                ev3.screen.clear()
+                podzaezd -= 1
+                if podzaezd < 0:
+                    podzaezd = len(races[click - 1]) - 1
+                draw_digits(click * 10 + podzaezd)
+                while Button.DOWN in ev3.buttons.pressed():
                     pass
             wait(100)
 
         if Button.CENTER in ev3.buttons.pressed():
-            races[click - 1]()
+            races[click - 1][podzaezd]()
             click += 1
-            draw_digits(click)
+            podzaezd = 0
+            draw_digits(click * 10 + podzaezd)
+
+            

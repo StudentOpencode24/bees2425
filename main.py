@@ -12,23 +12,24 @@ def one():
     motor.straight(-420)
     front_m.stop()
     back_m.run_angle(200, -105) #сбор плуга и скотча
-    motor.straight(260) #возвращение в зону
+    motor.straight(290) #возвращение в зону 
     
 def three():
     """выполнение яблони с забором контейнера 
     """
     ev3.speaker.beep()
-    motor.straight(160)
+    motor.straight(-10)
+    motor.straight(170)
     motor.reset()
     motor.drive(160, -80) # поворот по дуге для подъеза(вместе с while)
     while motor.angle() > -100:
        pass     
     motor.stop()
-    move_speed_change(320, 200) # подъезд к яблокам
-    motor.straight(-200)
-    move_speed_change(300, 9999, 9999) # подъезд на высокой скорости
-    wait(600)
-    motor.straight(-120)
+    move_speed_change(400, 360) # подъезд к яблокам
+    motor.straight(-100)
+    move_speed_change(400, 1000)
+    wait(1000)
+    motor.straight(-160)
     motor.turn(90)
     motor.straight(-400) # возвращение в зону
 
@@ -47,9 +48,11 @@ def two():
     motor.straight(-900) #возвращение в зону
 
 
-def four():
-    """переезд в красеую зону, с картошкой зернохранилищем
+
+def four1():
+    """переезд в красеую зону, с картошкой и зернохранилищем
     """
+    motor.straight(-20)
     ev3.speaker.beep()
     motor.straight(350)
     turn_acc_change(88, rate=1000)
@@ -60,19 +63,34 @@ def four():
     motor.straight(-70)
     motor.turn(-100)
     motor.straight(630)
-    motor.turn(100)
+    motor.turn(105)
     motor.straight(-470)
     motor.drive(-100, 0) #подъезд к картофелю
     for _ in range(2): #несколько подъездов к кортофелю
         motor.straight(-150)
         motor.straight(60)
-    back_m.run_angle(50, -58, wait=0)
-    motor.straight(130) # отъезд от кортофли
+    motor.straight(140) # отъезд от кортофли
     motor.turn(-88) #сбор винограда
-    move_speed_change(280, 400, 500)
-    move_speed_change(165, 200, 490)
-    back_m.run_angle(1000, 90)
-    motor.straight(800)
+    move_speed_change(1200, 1000, 500)
+
+def four2():
+    """переезд в красную зону, с картошкой без зернохранилища 
+    """
+    motor.straight(1000)
+    motor.turn(-100)
+    motor.straight(630)
+    motor.turn(105)
+    motor.straight(-470)
+    motor.drive(-100, 0) #подъезд к картофелю
+    for _ in range(2): #несколько подъездов к кортофелю
+        motor.straight(-150)
+        motor.straight(60)
+    motor.straight(140) # отъезд от кортофли
+    motor.turn(-88) #сбор винограда
+    move_speed_change(1200, 1000, 500)
+
+
+
 
 def front():
     """заезд в красную зону для тренировки только красной зоны 
@@ -123,17 +141,23 @@ def five():
 #     motor.turn(55)
 #     motor.straight(-550)
 
-def nine():
+def nine1():
     """последний заезд с иновационном проектом
     """
+    motor.straight(-40)
     motor.straight(1040)
-    motor.turn(45)
-    motor.straight(340)
     motor.turn(50)
+    motor.straight(360)
+    motor.turn(51)
     motor.straight(280) #контейнеры в овощебазу
     motor.straight(-210)
     motor.turn(-45) #ин. проект
     motor.straight(-170)
+
+def nine2():
+    """последний заезд только с иновационным проектам
+    """
+    motor.straight(-1000)
 
 def f():
     """завоз обарудования на поле
@@ -143,14 +167,13 @@ def f():
 def s():
     """завоз тактора и плуга н поле
     """
-    motor.straight(-280)
+    motor.straight(-280)    
     motor.straight(300)
     
 
 
 
 # start([one, two, three, four, five, six, seven, f, eight])
-start([one, two, three, front, five, f, s, nine])
-click = 0
+start([[one], [two], [three], [four1, four2, front], [five], [f], [s], [nine1, nine2]])
 
 
