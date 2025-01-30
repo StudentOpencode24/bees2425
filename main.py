@@ -63,24 +63,24 @@ def four1():
     motor.straight(-70)
     motor.turn(-100)
     motor.straight(630)
-    motor.turn(105)
+    motor.turn(102)
     motor.straight(-470)
     motor.drive(-100, 0) #подъезд к картофелю
     for _ in range(2): #несколько подъездов к кортофелю
         motor.straight(-150)
         motor.straight(60)
-    motor.straight(140) # отъезд от кортофли
+    motor.straight(135) # отъезд от кортофли
     motor.turn(-88) #сбор винограда
     move_speed_change(1200, 1000, 500)
 
 def four2():
     """переезд в красную зону, с картошкой без зернохранилища 
     """
-    motor.straight(1000)
-    motor.turn(-100)
-    motor.straight(630)
-    motor.turn(105)
-    motor.straight(-470)
+    motor.straight(980)
+    motor.turn(90)
+    motor.straight(-630)
+    # motor.turn(100)
+    # motor.straight(-470)
     motor.drive(-100, 0) #подъезд к картофелю
     for _ in range(2): #несколько подъездов к кортофелю
         motor.straight(-150)
