@@ -16,6 +16,8 @@ front_m = Motor(Port.A, gears=[12, 20])
 back_m = Motor(Port.D, gears=[12, 20])
 motor = DriveBase(lmot, rmot, 49.5, 119)
 gyro = GyroSensor(Port.S3)
+color1 = ColorSensor(Port.S2)
+color2 = ColorSensor(Port.S1)
 
 turn_acceleration = 500
 straight_acceleration = 600
@@ -40,6 +42,26 @@ def move_speed_change(distance, speed=1000, acc=straight_acceleration):
     motor.stop()
     motor.settings(straight_speed=1400, straight_acceleration = straight_acceleration)
 
+
+def move_By_Giro(distance, speed=1000, a=10):
+    gyro.reset_angle(0)
+    motor.reset()
+    while motor.distance() < distance:
+        angle = gyro.angle()
+        motor.drive(speed, -angle * a)
+
+
+# def move_By_Color1(distance, speed):
+#     motor.reset()
+#     while abs(motor.distance()) < abs(distance):
+#         error = 50-color1.reflection()
+#         motor.drive(speed, error)
+
+# def move_By_Color2(distance, speed):
+#     motor.reset()
+#     while motor.distance() > distance:
+#         error = color2.reflection()
+#         motor.drive(speed, error * 10)
 
 def draw_digits(value): 
     global ev3
