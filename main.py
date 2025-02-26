@@ -4,14 +4,17 @@ def one1():
     """первый заезд теплица, забирает плуг и оборудвания для сена 
     """
     back_m.run_angle(200, 95) #запуск мотора для сбора ящиков
-    front_m.run(9999)
-    motor.straight(350) #подъезд к теплице
-    wait(4) # ожидание пока собирает ящики
-    move_speed_change(-150,40)
-    motor.straight(-420)
+    front_m.run(-9999)
+    move_speed_change(240, 400) #подъезд к теплице. Блок 1
+    wait(3) # ожидание пока собирает ящики
+    move_speed_change(-50, 200)
+    move_speed_change(100, 400) #подъезд к теплице. Блок 2
+    wait(3) # ожидание пока собирает ящики
+    move_speed_change(-150,100)
+    motor.straight(-410)
     front_m.stop()
     back_m.run_angle(200, -105) #сбор плуга и скотча
-    motor.straight(290) #возвращение в зону 
+    motor.straight(270) #возвращение в зону 
 
 def one2():
     back_m.run_angle(200, 105)
@@ -27,7 +30,7 @@ def two():
     motor.straight(745)
     motor.turn(95)
     motor.straight(100) # подъезд к пшенице
-    # back_m.run_angle(100, 60) #сбор ящика
+    back_m.run_angle(1000, 82) #сбор ящика
     motor.straight(-20)
     motor.turn(-90)
     motor.straight(-900) #возвращение в зону
@@ -35,18 +38,16 @@ def two():
 def three():
     """выполнение яблони с забором контейнера 
     """
-    motor.straight(-10)
-    motor.straight(170)
-    motor.reset()
-    motor.drive(160, -80) # поворот по дуге для подъеза(вместе с while)
-    while motor.angle() > -100:
-       pass     
-    motor.stop()
+    motor.straight(-30)
+    motor.straight(260)
+    motor.turn(-65)
+    motor.straight(90)
+    motor.turn(-25)
     move_speed_change(400, 280) # подъезд к яблокам
     motor.straight(-100)
     move_speed_change(400, 1000)
     wait(1000)
-    motor.straight(-160)
+    motor.straight(-140)
     motor.turn(90)
     motor.straight(-400) # возвращение в зону
 
@@ -72,14 +73,15 @@ def four1():
     motor.straight(130) # отъезд от кортофли
     motor.turn(-91) #сбор винограда
     back_m.run_angle(300, 90)
-    move_By_Giro(400, 400, 2)
+    move_speed_change(400, 200)
     back_m.run_angle(300, -80)
     move_speed_change(900, 400)
 
 def four2():
     """переезд в красную зону, с картошкой без зернохранилища 
     """
-    back_m.run_angle(300, 30, wait= 0)
+    motor.straight(-3)
+    back_m.run_angle(400, 100, wait= 0)
     motor.straight(980)
     motor.turn(90)
     motor.straight(-630)
@@ -92,7 +94,7 @@ def four2():
     motor.straight(123) # отъезд от кортофли
     motor.turn(-91) #сбор винограда
     back_m.run_angle(300, 90)
-    move_By_Giro(400, 400, 2)
+    move_speed_change(400, 200)
     back_m.run_angle(300, -80)
     move_speed_change(900, 400)
 
@@ -150,20 +152,20 @@ def five():
     motor.straight(-88)
     motor.turn(33)
     motor.straight(-180) #подъезд к винограду
-    motor.straight(160)
+    motor.straight(150)
     motor.turn(90)
     motor.straight(94)# подъезд к трактору
-    front_m.run_angle(300, -60)
-    motor.turn(-20)
-    motor.turn(10)
     front_m.run_angle(300, -70)
-    motor.stop() 
-    motor.reset()
-    motor.drive(-1000, 90)
-    while motor.angle() < 145:
-       pass  
-    motor.stop() 
+    motor.turn(-30)
+    motor.turn(15)
+    front_m.run_angle(300, -80)
+    arc(1000, 110, 210)
     motor.turn(70)
+    motor.straight(90)
+    
+def five1():
+    front_m.run_angle(1000, 1000)
+    
 
 # def six():
 #     motor.straight(-100)
@@ -231,6 +233,6 @@ def power_down():
     
 
 # start([one, two, three, four, five, six, seven, f, eight])
-start([[one1, one2], [two], [three], [four1, four2, four3, four4, front], [five], [f], [s], [nine1, nine2], [power_down]])
+start([[one1, one2], [two], [three], [four1, four2, four3, four4, front], [five, five1], [f], [s], [nine1, nine2], [power_down]])
 
 

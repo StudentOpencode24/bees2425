@@ -16,8 +16,8 @@ front_m = Motor(Port.A, gears=[12, 20])
 back_m = Motor(Port.D, gears=[12, 20])
 motor = DriveBase(lmot, rmot, 49.5, 119)
 gyro = GyroSensor(Port.S3)
-color1 = ColorSensor(Port.S2)
-color2 = ColorSensor(Port.S1)
+# color1 = ColorSensor(Port.S2)
+# color2 = ColorSensor(Port.S1)
 
 turn_acceleration = 500
 straight_acceleration = 600
@@ -50,6 +50,13 @@ def move_By_Giro(distance, speed=1000, a=10):
         angle = gyro.angle()
         motor.drive(speed, -angle * a)
 
+def arc(speed, speed_trun, distance):
+    motor.stop()
+    motor.reset()
+    motor.drive(-speed, speed_trun)
+    while motor.angle() < distance:
+       pass  
+    motor.stop()
 
 # def move_By_Color1(distance, speed):
 #     motor.reset()
