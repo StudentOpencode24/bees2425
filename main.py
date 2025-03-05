@@ -146,49 +146,35 @@ def front():
 def five():
     """выполняет виноградник и забирает трактор в синию зону
     """
-    motor.straight(15)
-    motor.straight(-450)
-    motor.turn(-35)
-    motor.straight(-88)
-    motor.turn(33)
-    motor.straight(-180) #подъезд к винограду
-    motor.straight(150)
-    motor.turn(90)
-    motor.straight(94)# подъезд к трактору
-    front_m.run_angle(300, -70)
-    motor.turn(-30)
-    motor.turn(15)
-    front_m.run_angle(300, -80)
-    arc(1000, 110, 210)
-    motor.turn(70)
-    motor.straight(90)
+    motor.straight(20)
+    front_m.run_angle(-1400)
+    motor.straight(-600)
+    back_m.run_angle(-100)
+    motor.straight(-100)
+    motor.straight(50)
+    motor.turn(-90)
+    motor.straight(100)
+    front_m.run_angle(600)
+
     
 def five1():
     front_m.run_angle(1000, 1000)
     
 
-# def six():
-#     motor.straight(-100)
-#     back_m.run_angle(500, 215) # сбор рамки скотча
-#     motor.turn(-30)
-#     motor.straight(380)
+def six():
+    # front_m.run_angle(1000, -4000)
+    motor.straight(-8)
+    front_m.run_angle(500, 70, wait=0)
+    motor.straight(190)
+    motor.turn(90)
+    motor.straight(130)
+    front_m.run_angle(500, -85) # сбор рамки скотча
+    motor.turn(-30)
+    motor.straight(-220)
 
-# def seven():
-#     motor.straight(97)
-#     gyro.reset_angle(0)
-#     while abs(gyro.angle()) < 30: # поворот по гироскопу на 30
-#         motor.drive(0, 100)
-#     motor.stop()
-#     motor.straight(430)
-    # gyro.reset_angle(0)
-    # while abs(gyro.angle()) < 30:
-    #     motor.drive(0, -100)
-#     motor.stop()
-#     back_m.run_angle(800, 30, wait= 0)
-#     move_speed_change(-500, 500, 1000) # подъезд к скотчу
-#     motor.straight(350)
-#     motor.turn(55)
-#     motor.straight(-550)
+def seven():
+    back_m.run_angle(500, -7000)
+
 def sixs():
     motor.straight(30)
     motor.straight(-250)
@@ -233,6 +219,6 @@ def power_down():
     
 
 # start([one, two, three, four, five, six, seven, f, eight])
-start([[one1, one2], [two], [three], [four1, four2, four3, four4, front], [five, five1], [f], [s], [nine1, nine2], [power_down]])
+start([[one1, one2], [two], [three], [four1, four2, four3, four4, front], [five, five1],[six], [seven], [f], [s], [nine1, nine2], [power_down]])
 
 
