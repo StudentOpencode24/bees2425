@@ -146,15 +146,15 @@ def front():
 def five():
     """выполняет виноградник и забирает трактор в синию зону
     """
-    motor.straight(20)
-    front_m.run_angle(-1400)
-    motor.straight(-600)
-    back_m.run_angle(-100)
-    motor.straight(-100)
-    motor.straight(50)
-    motor.turn(-90)
-    motor.straight(100)
-    front_m.run_angle(600)
+    motor.straight(30)
+    front_m.run_angle(1000, -3200, wait=0)
+    motor.straight(-500)
+    back_m.run_angle(550, -500)
+    motor.straight(-200)
+    motor.straight(150)
+    motor.turn(90)
+    motor.straight(140)
+    front_m.run_angle(3000, 600)
 
     
 def five1():
@@ -173,7 +173,24 @@ def six():
     motor.straight(-220)
 
 def seven():
-    back_m.run_angle(500, -7000)
+    motor.straight(-8)
+    motor.straight(200)
+    front_m.run_angle(250, -110)
+    move_speed_change(-250, 250)
+    move_speed_change(50, 250)
+    motor.turn(30)
+    front_m.run_angle(300, 110)
+    motor.turn(-30)
+
+def eight():
+    motor.straight(-8)
+    back_m.run_angle(300, 10, wait=0)
+    motor.straight(290)
+    motor.turn(90)
+    back_m.run_angle(300, -30, wait=0)
+    motor.straight(145)
+    motor.turn(7)
+    motor.straight(-130)
 
 def sixs():
     motor.straight(30)
@@ -219,6 +236,4 @@ def power_down():
     
 
 # start([one, two, three, four, five, six, seven, f, eight])
-start([[one1, one2], [two], [three], [four1, four2, four3, four4, front], [five, five1],[six], [seven], [f], [s], [nine1, nine2], [power_down]])
-
-
+start([[one1, one2], [two], [three], [four1, four2, four3, four4, front], [five, five1],[six], [seven], [eight, f], [s], [nine1, nine2], [power_down]])
