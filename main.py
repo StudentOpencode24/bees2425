@@ -15,6 +15,8 @@ def one1():
     front_m.stop()
     back_m.run_angle(200, -105) #сбор плуга и скотча
     motor.straight(270) #возвращение в зону 
+    back_m.run_angle(800, -1500)
+    back_m.run_angle(800, 1700)
 
 def one2():
     back_m.run_angle(200, 105)
@@ -147,14 +149,18 @@ def five():
     """выполняет виноградник и забирает трактор в синию зону
     """
     motor.straight(30)
-    front_m.run_angle(1000, -3200, wait=0)
+    front_m.run_angle(1000, -3100, wait= 0)
     motor.straight(-500)
-    back_m.run_angle(550, -500)
+    back_m.run_angle(550, -600, wait= 0)
     motor.straight(-200)
     motor.straight(150)
     motor.turn(90)
-    motor.straight(140)
-    front_m.run_angle(3000, 600)
+    motor.straight(160)
+    front_m.run_angle(1000, 1000)
+    motor.straight(-200)
+    motor.turn(100)
+    motor.straight(-700)
+    motor.turn(90)
 
     
 def five1():
@@ -184,13 +190,14 @@ def seven():
 
 def eight():
     motor.straight(-8)
-    back_m.run_angle(300, 10, wait=0)
-    motor.straight(290)
+    motor.straight(200)
     motor.turn(90)
-    back_m.run_angle(300, -30, wait=0)
-    motor.straight(145)
-    motor.turn(7)
-    motor.straight(-130)
+    motor.straight(110)
+    arc(1, 90, 8)
+    back_m.run_angle(300, -100)
+    motor.straight(-120)
+    motor.turn(-90)
+    motor.straight(-100)
 
 def sixs():
     motor.straight(30)
