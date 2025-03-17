@@ -14,9 +14,7 @@ def one1():
     motor.straight(-410)
     front_m.stop()
     back_m.run_angle(200, -105) #сбор плуга и скотча
-    motor.straight(270) #возвращение в зону 
-    back_m.run_angle(800, -1500)
-    back_m.run_angle(800, 1700)
+    motor.straight(270) #возвращение в зону
 
 def one2():
     back_m.run_angle(200, 105)
@@ -33,18 +31,18 @@ def two():
     motor.turn(95)
     motor.straight(100) # подъезд к пшенице
     back_m.run_angle(1000, 82) #сбор ящика
-    motor.straight(-20)
-    motor.turn(-90)
+    motor.straight(-10)
+    motor.turn(-95)
     motor.straight(-900) #возвращение в зону
     
 def three():
     """выполнение яблони с забором контейнера 
     """
     motor.straight(-30)
-    motor.straight(260)
+    motor.straight(280)
     motor.turn(-65)
-    motor.straight(90)
-    motor.turn(-25)
+    motor.straight(95)
+    motor.turn(-30)
     move_speed_change(400, 280) # подъезд к яблокам
     motor.straight(-100)
     move_speed_change(400, 1000)
@@ -59,15 +57,15 @@ def four1():
     front_m.run_angle(800, -7, wait=0)
     motor.straight(-10)
     motor.straight(355)
-    turn_acc_change(90, rate=1000)
-    for i in range(1):
+    turn_acc_change(87, rate=1000)
+    for i in range(1):#подъезд к зерну
         motor.straight(273)
         motor.straight(-70)
     motor.straight(-70)
     motor.turn(-100)
     motor.straight(620)
     motor.turn(104)
-    front_m.run_angle(800, 50, wait=0)
+    front_m.run_angle(800, 50, wait=0)#инновационный проект
     move_speed_change(-550, 400) #подъезд к картофелю
     motor.straight(60)
     motor.straight(-150)
@@ -150,14 +148,14 @@ def five():
     """
     motor.straight(30)
     front_m.run_angle(1000, -3100, wait= 0)
-    motor.straight(-500)
-    back_m.run_angle(550, -600, wait= 0)
-    motor.straight(-200)
+    motor.straight(-400)
+    back_m.run_angle(550, -600)
+    motor.straight(-300)
     motor.straight(150)
     motor.turn(90)
     motor.straight(160)
-    front_m.run_angle(1000, 1000)
-    motor.straight(-200)
+    front_m.run_angle(3500, 1000)
+    motor.straight(-250)
     motor.turn(100)
     motor.straight(-700)
     motor.turn(90)
@@ -167,26 +165,23 @@ def five1():
     front_m.run_angle(1000, 1000)
     
 
-def six():
-    # front_m.run_angle(1000, -4000)
-    motor.straight(-8)
-    front_m.run_angle(500, 70, wait=0)
-    motor.straight(190)
-    motor.turn(90)
-    motor.straight(130)
-    front_m.run_angle(500, -85) # сбор рамки скотча
-    motor.turn(-30)
-    motor.straight(-220)
+# def six():
+#     # front_m.run_angle(1000, -4000)
+#     motor.straight(-8)
+#     front_m.run_angle(500, 70, wait=0)
+#     motor.straight(190)
+#     motor.turn(90)
+#     motor.straight(130)
+#     front_m.run_angle(500, -85) # сбор рамки скотча
+#     motor.turn(-30)
+#     motor.straight(-220)
 
 def seven():
-    motor.straight(-8)
+    motor.straight(-30)
     motor.straight(200)
-    front_m.run_angle(250, -110)
-    move_speed_change(-250, 250)
-    move_speed_change(50, 250)
-    motor.turn(30)
-    front_m.run_angle(300, 110)
-    motor.turn(-30)
+    front_m.run_angle(-250, 110)
+    move_speed_change(-250, 800)
+    move_speed_change(50, 800)
 
 def eight():
     motor.straight(-8)
@@ -199,14 +194,6 @@ def eight():
     motor.turn(-90)
     motor.straight(-100)
 
-def sixs():
-    motor.straight(30)
-    motor.straight(-250)
-    back_m.run_angle(1000, -240)
-    move_By_Giro(400, 450)
-    motor.stop()
-    back_m.run_angle(1000, 280)
-
 
 def nine1():
     """последний заезд с иновационном проектом
@@ -217,9 +204,6 @@ def nine1():
     motor.straight(360)
     motor.turn(51)
     motor.straight(280) #контейнеры в овощебазу
-    motor.straight(-210)
-    motor.turn(-45) #ин. проект
-    motor.straight(-170)
 
 def nine2():
     """последний заезд только с иновационным проектам
@@ -243,4 +227,4 @@ def power_down():
     
 
 # start([one, two, three, four, five, six, seven, f, eight])
-start([[one1, one2], [two], [three], [four1, four2, four3, four4, front], [five, five1],[six], [seven], [eight, f], [s], [nine1, nine2], [power_down]])
+start([[one1, one2], [two], [three], [four1, four2, four3, four4, front], [five, five1], [seven], [eight, f], [s], [nine1, nine2], [power_down]])
