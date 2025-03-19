@@ -179,9 +179,10 @@ def five1():
 def seven():
     motor.straight(-30)
     motor.straight(200)
-    front_m.run_angle(-250, 110)
-    move_speed_change(-250, 800)
-    move_speed_change(50, 800)
+    front_m.run_angle(-200, 110, )
+    move_By_Giro(250, -400, 25)
+    front_m.run_angle(250, 110)
+    
 
 def eight():
     motor.straight(-8)

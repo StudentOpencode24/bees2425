@@ -43,12 +43,17 @@ def move_speed_change(distance, speed=1000, acc=straight_acceleration):
     motor.settings(straight_speed=1400, straight_acceleration = straight_acceleration)
 
 
-def move_By_Giro(distance, speed=1000, a=10):
+def move_By_Giro(distance, speed=1000, kp=10, kd=2):
     gyro.reset_angle(0)
     motor.reset()
-    while motor.distance() < distance:
-        angle = gyro.angle()
-        motor.drive(speed, -angle * a)
+    last_error = 0
+    time = 0.1
+    while abs(motor.distance()) < abs(distance):
+        e = -gyro.angle()
+        d = (e - last_error) / time
+        value = e * kp + d * kd
+        motor.drive(speed, value)
+        wait(time * 1000)
 
 def arc(speed, speed_trun, distance):
     motor.stop()
