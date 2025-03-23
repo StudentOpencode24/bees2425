@@ -54,6 +54,7 @@ def move_By_Giro(distance, speed=1000, kp=10, kd=2):
         value = e * kp + d * kd
         motor.drive(speed, value)
         wait(time * 1000)
+        motor.stop()
 
 def arc(speed, speed_trun, distance):
     motor.stop()

@@ -148,13 +148,13 @@ def five():
     """
     motor.straight(30)
     front_m.run_angle(1000, -3100, wait= 0)
-    motor.straight(-400)
-    back_m.run_angle(550, -600)
-    motor.straight(-300)
-    motor.straight(150)
+    back_m.run_angle(1000, -600,  wait= 0)
+    motor.straight(-700)
+    motor.straight(142) # отъезд от винограда
     motor.turn(90)
-    motor.straight(160)
+    motor.straight(300)
     front_m.run_angle(3500, 1000)
+    back_m.run_angle(1000, 600, wait=0)
     motor.straight(-250)
     motor.turn(100)
     motor.straight(-700)
@@ -179,18 +179,20 @@ def five1():
 def seven():
     motor.straight(-30)
     motor.straight(200)
-    front_m.run_angle(-200, 110, )
+    front_m.run_angle(-200, 110)
     move_By_Giro(250, -400, 25)
     front_m.run_angle(250, 110)
+    motor.stop()
     
 
 def eight():
+    back_m.run_angle(300, 50)
     motor.straight(-8)
     motor.straight(200)
     motor.turn(90)
     motor.straight(110)
     arc(1, 90, 8)
-    back_m.run_angle(300, -100)
+    back_m.run_angle(300, -110)
     motor.straight(-120)
     motor.turn(-90)
     motor.straight(-100)
@@ -217,15 +219,11 @@ def f():
     """
     motor.straight(200)
     motor.straight(-100)
-def s():
-    """завоз тактора и плуга н поле
-    """
-    motor.straight(-280)
-    motor.straight(300)
+
 def power_down():
     while True:
         move_speed_change(1000, 1000, 1000)
     
 
 # start([one, two, three, four, five, six, seven, f, eight])
-start([[one1, one2], [two], [three], [four1, four2, four3, four4, front], [five, five1], [seven], [eight, f], [s], [nine1, nine2], [power_down]])
+start([[one1, one2], [two], [three], [four1, front], [five, five1], [seven], [eight], [f], [nine1, nine2], [power_down]])
