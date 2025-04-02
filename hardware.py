@@ -1,10 +1,8 @@
 from pybricks.hubs import EV3Brick
-from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
-                                 InfraredSensor, UltrasonicSensor, GyroSensor)
-from pybricks.parameters import Port, Stop, Direction, Button, Color
-from pybricks.tools import wait, StopWatch, DataLog#, multitask, run_task
+from pybricks.ev3devices import (Motor, ColorSensor, GyroSensor)
+from pybricks.parameters import Port, Button, Color
+from pybricks.tools import wait
 from pybricks.robotics import DriveBase
-from pybricks.media.ev3dev import SoundFile, ImageFile  
 # Create your objects here.
 ev3 = EV3Brick()
 
@@ -42,6 +40,12 @@ def move_speed_change(distance, speed=1000, acc=straight_acceleration):
     motor.stop()
     motor.settings(straight_speed=1400, straight_acceleration = straight_acceleration)
 
+def turn_by_giro(turn_distance, speed=100):
+    gyro.reset_angle(0)
+    motor.reset()
+    motor.drive(0,speed)
+    if gyro() == turn_distance():
+        motor.stop()
 
 def move_By_Giro(distance, speed=1000, kp=10, kd=2):
     gyro.reset_angle(0)
@@ -50,11 +54,13 @@ def move_By_Giro(distance, speed=1000, kp=10, kd=2):
     time = 0.1
     while abs(motor.distance()) < abs(distance):
         e = -gyro.angle()
+        # print(e)
         d = (e - last_error) / time
         value = e * kp + d * kd
         motor.drive(speed, value)
         wait(time * 1000)
-        motor.stop()
+    motor.stop()
+    
 
 def arc(speed, speed_trun, distance):
     motor.stop()
@@ -64,17 +70,17 @@ def arc(speed, speed_trun, distance):
        pass  
     motor.stop()
 
-# def move_By_Color1(distance, speed):
-#     motor.reset()
-#     while abs(motor.distance()) < abs(distance):
-#         error = 50-color1.reflection()
-#         motor.drive(speed, error)
+def move_By_Color1(distance, speed):
+    motor.reset()
+    while abs(motor.distance()) < abs(distance):
+        error = 50-color1.reflection()
+        motor.drive(speed, error)
 
-# def move_By_Color2(distance, speed):
-#     motor.reset()
-#     while motor.distance() > distance:
-#         error = color2.reflection()
-#         motor.drive(speed, error * 10)
+def move_By_Color2(distance, speed):
+    motor.reset()
+    while motor.distance() > distance:
+        error = color2.reflection()
+        motor.drive(speed, error * 10)
 
 def draw_digits(value): 
     global ev3
