@@ -5,7 +5,7 @@ from pybricks.tools import wait
 from pybricks.robotics import DriveBase
 # Create your objects here.
 ev3 = EV3Brick()
-
+# импорт библиотек
 
 # Write your program here.
 lmot = Motor(Port.B, gears=[28, 20])
@@ -14,16 +14,30 @@ front_m = Motor(Port.A, gears=[12, 20])
 back_m = Motor(Port.D, gears=[12, 20])
 motor = DriveBase(lmot, rmot, 49.5, 119)
 gyro = GyroSensor(Port.S3)
-# color1 = ColorSensor(Port.S2)
-# color2 = ColorSensor(Port.S1)
+colorRight = ColorSensor(Port.S2)
+colorLeft = ColorSensor(Port.S1)
+
+# задаём порты 
 
 turn_acceleration = 500
 straight_acceleration = 600
 
 
 motor.settings(straight_speed=1000, straight_acceleration=straight_acceleration, turn_rate=200, turn_acceleration=turn_acceleration)
+# настройки моторов
 
+def t(l = 50, r = 50, speed = 500):
+    lmot.run_angle(speed, l, 0, wait=0)
+    rmot.run_angle(speed, r, 0, wait=0)
 
+def arc(speed, speed_trun, angle):
+    motor.stop()
+    motor.reset()
+    motor.drive(-speed, speed_trun)
+    while abs(motor.angle()) < angle:
+       pass  
+    motor.stop()
+    
 
 def turn_acc_change(ang, rate = 1000, acc = turn_acceleration):
     motor.stop()
@@ -32,6 +46,7 @@ def turn_acc_change(ang, rate = 1000, acc = turn_acceleration):
     motor.stop()
     motor.settings(turn_rate=1000, turn_acceleration = turn_acceleration)
     
+# функция поворота 
 
 def move_speed_change(distance, speed=1000, acc=straight_acceleration):
     motor.stop()
@@ -40,18 +55,23 @@ def move_speed_change(distance, speed=1000, acc=straight_acceleration):
     motor.stop()
     motor.settings(straight_speed=1400, straight_acceleration = straight_acceleration)
 
+# функция проезда с задомаемой скоростью и возможностью плавного тормажения и ускорения 
+
 def turn_by_giro(turn_distance, speed=100):
     gyro.reset_angle(0)
     motor.reset()
     motor.drive(0,speed)
-    if gyro() == turn_distance():
+    g = gyro()
+    if g == turn_distance():
         motor.stop()
+
+# функция поорота по гироскопу
 
 def move_By_Giro(distance, speed=1000, kp=10, kd=2):
     gyro.reset_angle(0)
     motor.reset()
     last_error = 0
-    time = 0.1
+    time = 0.01
     while abs(motor.distance()) < abs(distance):
         e = -gyro.angle()
         # print(e)
@@ -60,28 +80,71 @@ def move_By_Giro(distance, speed=1000, kp=10, kd=2):
         motor.drive(speed, value)
         wait(time * 1000)
     motor.stop()
-    
 
-def arc(speed, speed_trun, distance):
-    motor.stop()
-    motor.reset()
-    motor.drive(-speed, speed_trun)
-    while motor.angle() < distance:
-       pass  
-    motor.stop()
+def travel_and_lines(speed):
+    while colorLeft.reflection() <= 7:
+        motor.drive(speed)
 
-def move_By_Color1(distance, speed):
+def move_By_giro_F_S(speed, kd = 0.01, kp = 0.4):
+    gyro.reset_angle(0)
     motor.reset()
+    last_error = 0
+    time = 0.01
+    def valL():
+        return colorLeft.reflection()
+    def valR():
+        return colorRight.reflection()
+    l = valL()
+    r = valR()
+    while l < 45 or r < 50:
+        e = -gyro.angle()
+        d = (e - last_error) / time
+        value = e * kp + d * kd
+        motor.drive(speed, value)
+        l = valL()
+        r = valR()
+        wait(time * 1000)
+    motor.stop()
+    print("Exit from move_By_giro_F_S on values ", l, r)
+
+# функция езды по гироскопу
+def move_By_ColorLeft(distance, speed = 200, kp = 0.5, kd = 0.1):
+    motor.reset()
+    last_e = 0
+    time = 0.05
+    normal = 35
     while abs(motor.distance()) < abs(distance):
-        error = 50-color1.reflection()
-        motor.drive(speed, error)
+        error = normal - colorLeft.reflection()
+        d = (error - last_e) / time
+        value = error * kp + d * kd
+        motor.drive(speed, -value)
+        last_e = error
+        wait(time * 1000)
+    motor.stop()
+    
+# езда по первому датчика цвета
 
-def move_By_Color2(distance, speed):
+def move_By_ColorRight(distance, speed = 200, kp = 0.5, kd = 0.1):
     motor.reset()
-    while motor.distance() > distance:
-        error = color2.reflection()
-        motor.drive(speed, error * 10)
+    last_e = 0
+    time = 0.05
+    normal = 35
+    while abs(motor.distance()) < abs(distance):
+        error = normal - colorRight.reflection()
+        d = (error - last_e) / time
+        value = error * kp + d * kd
+        motor.drive(speed, value)
+        last_e = error
+        wait(time * 1000)
+    motor.stop()
 
+def f_l(speed = 100, turn_rate = 10):
+    motor.reset()
+    motor.drive(speed, turn_rate)
+    while colorLeft.reflection() < 10:
+        pass
+    motor.stop()
+        
 def draw_digits(value): 
     global ev3
     ev3.screen.clear() 
@@ -123,7 +186,8 @@ def draw_digits(value):
             y2 = y_offset + sig_width * 2 + sig_len * 2 
         ev3.screen.draw_box(x1, y1, x2, y2, fill = True)
  
- 
+# 
+
     digits_sigments = { 
         0: [0, 1, 2, 3, 4, 5], 
         1: [1, 2], 
@@ -137,6 +201,8 @@ def draw_digits(value):
         9: [0, 1, 2, 3, 5, 6] 
     } 
  
+#
+
     digs = [int(v) for v in str(abs(value))] 
     digs.reverse() 
     num = 0 
@@ -145,7 +211,7 @@ def draw_digits(value):
             show_sigment(sigment, num) 
         num += 1 
  
- 
+# функция для прорисовки больших символов на смарт хаб
     
 def start(races):
     click = 1
@@ -196,4 +262,4 @@ def start(races):
             podzaezd = 0
             draw_digits(click * 10 + podzaezd)
 
-            
+# функция для запуска с кнопок на смарт хабе 

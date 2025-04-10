@@ -13,6 +13,7 @@ def one1():
     move_speed_change(-150,100)
     motor.straight(-410)
     front_m.stop()
+    motor.turn(7)
     back_m.run_angle(200, -105) #сбор плуга и скотча
     motor.straight(270) #возвращение в зону
 
@@ -78,39 +79,42 @@ def four1():
     """
     front_m.run_angle(800, -7, wait=0)
     motor.straight(-10)
-    motor.straight(355)
-    turn_acc_change(87, rate=1000)
+    motor.straight(350)
+    turn_acc_change(89, rate=1000)
     # подъезд к зернохранилищу
     motor.straight(273)
     motor.straight(-140)
-    motor.turn(-103)
+    motor.turn(-101)
     motor.straight(620)
-    motor.turn(102)
+    motor.turn(101)
+    front_m.run_angle(400, 100, wait=0)
+    wait(200)
     # сброс инновационного проекта
-    front_m.run_angle(800, 50, wait=0)
     move_speed_change(-550, 400)
     # подъезд к картофелю
     motor.straight(60)
     motor.straight(-150)
-    move_speed_change(129, 400)
+    move_speed_change(105, 400)
     # подъезд к комбайну
     back_m.run_angle(800, -1560)
-    back_m.run_angle(1000, 1760, wait=0)
+    back_m.run_angle(1000, 1960, wait=0)
     wait(500)
-    motor.straight(73) 
+    motor.straight(90)
     motor.turn(-87)
     # поворот к зоне
-    motor.straight(1100)
+    motor.straight(600)
+    motor.turn(-10)
+    motor.straight(450)
+
 
 
 def four2():
     """экстреный переезд
     """
     motor.straight(350)
-    move_By_Color1(450, 500)
+    move_By_ColorLeft(450, 500)
     motor.turn(-45)
-    motor.straight(600)
-    move_By_Color2(400, 300)
+    motor.straight(600)    
     motor.straight(200)
 
 def front():
@@ -126,7 +130,7 @@ def five():
     back_m.run_angle(1000, -600,  wait= 0)
     # опускание лапы и выдвежение шторок
     motor.straight(-690)
-    motor.straight(150)
+    motor.straight(130)
     motor.turn(90)
     wait(1500)
     motor.straight(170)
@@ -134,9 +138,9 @@ def five():
     front_m.run_angle(3500, 1600)
     back_m.run_angle(1000, 600, wait=0)
     motor.turn(20)
-    motor.straight(-160)
+    motor.straight(-130)
     front_m.run_angle(4000, 1000, wait=0)
-    motor.turn(80)
+    motor.turn(90)
     motor.straight(-800)
     # заезд в красную зону
 
@@ -156,34 +160,50 @@ def five():
 def seven():
     """задвижение подставки руллоника
     """
-    motor.straight(-28)
+    arc(-200, 400, 7)
     motor.straight(220)
-    front_m.run_angle(240, 180)
+    front_m.run_angle(240, 200)
     wait(500)
-    move_By_Giro(600, -420, 25)
+    move_By_Giro(600, -500, 25)
     # повторное задвижение по гироскопу
     wait(100)
     motor.straight(20)
+    arc(-200, -400, 20)
     front_m.run_angle(240, -200)
+
 
 def eight():
     """завоз руллоника
     """
-    motor.straight(300)
-    wait(3000)
-    motor.straight(-600)
-    motor.straight(300)
+    move_speed_change(295, 200, 700)
+    motor.straight(-250)
 
+def eight1():
+    motor.straight(-350)
+    motor.straight(350)
 
 def nine1():
     """последний заезд с иновационном проектом
     """
-    motor.straight(-40)
-    motor.straight(1300)
-    motor.turn(50)
-    motor.straight(360)
-    motor.turn(51)
-    motor.straight(280) #контейнеры в овощебазу
+    # motor.straight(-10)
+    # motor.straight(450)
+    # f_l(200, 800)
+    # move_By_ColorLeft(380)
+    # motor.straight(305)
+    # motor.turn(40)
+    # motor.straight(370)
+    # motor.turn(50)
+    # motor.straight(200)
+    move_By_giro_F_S(-200, 0.01, 0.4)
+    move_speed_change(100, 200, 800)
+    back_m.run_angle(450, 200)
+    move_By_Giro(180, 200, 0.01, 0.5)
+    # move_speed_change(180, 500, 800)
+    back_m.run_angle(50, 50)
+    # maxL, maxR = colorLeft.reflection(), colorRight.reflection()
+    # while True:
+    #     print(colorLeft.reflection(), colorRight.reflection())
+
 
 
 def f():
@@ -193,9 +213,12 @@ def f():
     motor.straight(-300)
 
 def power_down():
-    while True:
-        move_speed_change(1000, 1000, 1000)
+    pass
+#     while True:
+#         move_speed_change(1000, 1000, 1000)
+
+        
     
 
 # start([one, two, three, four, five, six, seven, f, eight])
-start([[one1, one2, one3], [two], [three], [four1, front], [five], [seven], [eight], [nine1], [power_down]])
+start([[one1, one2, one3], [two], [three], [four1, front], [five], [seven], [eight], [eight1], [nine1], [power_down]])
