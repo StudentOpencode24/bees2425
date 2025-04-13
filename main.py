@@ -43,14 +43,14 @@ def two():
     motor.straight(-20)
     back_m.run_angle(100, -90,wait = 0)
     # поднятие лапы
-    motor.straight(745)
+    motor.straight(740)
     motor.turn(93)
-    motor.straight(100)
+    move_speed_change(80, 900)
     # подъезд к пшенице
-    back_m.run_angle(1000, 82)
+    back_m.run_angle(1000, 85)
     # сбор ящика
-    motor.straight(-10)
-    motor.turn(-97)
+    motor.straight(-15)
+    motor.turn(-90)
     motor.straight(-900)
     # возвращение в зону
     
@@ -58,15 +58,15 @@ def three():
     """выполнение яблони с забором контейнера 
     """
     motor.straight(-30)
-    motor.straight(280)
+    motor.straight(265)
     # выезд из зоны
     motor.turn(-65)
     motor.straight(95)
-    motor.turn(-30)
-    move_speed_change(400, 280)
+    motor.turn(-31)
+    move_speed_change(400, 700)
     # подъезд к яблокам
     motor.straight(-100)
-    move_speed_change(400, 1000)
+    move_speed_change(600, 1000, 1000)
     # 
     wait(1000)
     motor.straight(-130)
@@ -86,9 +86,9 @@ def four1():
     motor.straight(-140)
     motor.turn(-101)
     motor.straight(620)
-    motor.turn(101)
+    motor.turn(100)
     front_m.run_angle(400, 100, wait=0)
-    wait(200)
+    wait(300)
     # сброс инновационного проекта
     move_speed_change(-550, 400)
     # подъезд к картофелю
@@ -96,7 +96,7 @@ def four1():
     motor.straight(-150)
     move_speed_change(105, 400)
     # подъезд к комбайну
-    back_m.run_angle(800, -1560)
+    back_m.run_angle(800, -1520)
     back_m.run_angle(1000, 1960, wait=0)
     wait(500)
     motor.straight(90)
@@ -130,15 +130,15 @@ def five():
     back_m.run_angle(1000, -600,  wait= 0)
     # опускание лапы и выдвежение шторок
     motor.straight(-690)
-    motor.straight(130)
-    motor.turn(90)
+    motor.straight(155)
+    motor.turn(92)
     wait(1500)
     motor.straight(170)
     # подъезд к трактору
     front_m.run_angle(3500, 1600)
     back_m.run_angle(1000, 600, wait=0)
     motor.turn(20)
-    motor.straight(-130)
+    motor.straight(-145)
     front_m.run_angle(4000, 1000, wait=0)
     motor.turn(90)
     motor.straight(-800)
@@ -160,16 +160,19 @@ def five():
 def seven():
     """задвижение подставки руллоника
     """
+    wait(100)
+    motor.straight(-40)
     arc(-200, 400, 7)
     motor.straight(220)
     front_m.run_angle(240, 200)
     wait(500)
-    move_By_Giro(600, -500, 25)
+    move_By_Giro(600, -450, 25)
     # повторное задвижение по гироскопу
     wait(100)
     motor.straight(20)
-    arc(-200, -400, 20)
+    wait(100)
     front_m.run_angle(240, -200)
+    arc(-200, -400, 20)
 
 
 def eight():
@@ -185,25 +188,27 @@ def eight1():
 def nine1():
     """последний заезд с иновационном проектом
     """
-    # motor.straight(-10)
-    # motor.straight(450)
-    # f_l(200, 800)
-    # move_By_ColorLeft(380)
-    # motor.straight(305)
-    # motor.turn(40)
-    # motor.straight(370)
-    # motor.turn(50)
-    # motor.straight(200)
+    motor.straight(-10)
+    motor.straight(450)
+    f_l(200, 25)
+    move_By_ColorRight_for_line(200, 1.8, 0.14)
+    motor.straight(210)
+    motor.turn(60)
+    motor.straight(370)
+    motor.turn(50)
+    motor.straight(150)
     move_By_giro_F_S(-200, 0.01, 0.4)
-    move_speed_change(100, 200, 800)
+    move_speed_change(40, 300)
     back_m.run_angle(450, 200)
-    move_By_Giro(180, 200, 0.01, 0.5)
-    # move_speed_change(180, 500, 800)
-    back_m.run_angle(50, 50)
+    move_By_Giro(260, 100, 0.01, 0.04)
+    motor.straight(-20)
+    back_m.run_angle(-60, 70)
+
+    
     # maxL, maxR = colorLeft.reflection(), colorRight.reflection()
     # while True:
     #     print(colorLeft.reflection(), colorRight.reflection())
-
+    # calibrate_kp_kd(distance=100, speed=200, kp_min=0.01, kp_max=0.09, kd_min=0.01, kd_max=0.09, step=0.01)
 
 
 def f():

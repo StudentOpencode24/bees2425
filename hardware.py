@@ -14,13 +14,17 @@ front_m = Motor(Port.A, gears=[12, 20])
 back_m = Motor(Port.D, gears=[12, 20])
 motor = DriveBase(lmot, rmot, 49.5, 119)
 gyro = GyroSensor(Port.S3)
-colorRight = ColorSensor(Port.S2)
-colorLeft = ColorSensor(Port.S1)
+colorLeft = ColorSensor(Port.S2)
+colorRight = ColorSensor(Port.S1)
 
 # задаём порты 
 
 turn_acceleration = 500
 straight_acceleration = 600
+
+def light_calibrate():
+    colorRight.calibrate_white()
+    colorRight.calibrate_white()
 
 
 motor.settings(straight_speed=1000, straight_acceleration=straight_acceleration, turn_rate=200, turn_acceleration=turn_acceleration)
@@ -55,7 +59,7 @@ def move_speed_change(distance, speed=1000, acc=straight_acceleration):
     motor.stop()
     motor.settings(straight_speed=1400, straight_acceleration = straight_acceleration)
 
-# функция проезда с задомаемой скоростью и возможностью плавного тормажения и ускорения 
+# функция проезда с задаваемой скоростью и возможностью плавного тормажения и ускорения 
 
 def turn_by_giro(turn_distance, speed=100):
     gyro.reset_angle(0)
@@ -67,54 +71,13 @@ def turn_by_giro(turn_distance, speed=100):
 
 # функция поорота по гироскопу
 
-def move_By_Giro(distance, speed=1000, kp=10, kd=2):
-    gyro.reset_angle(0)
-    motor.reset()
-    last_error = 0
-    time = 0.01
-    while abs(motor.distance()) < abs(distance):
-        e = -gyro.angle()
-        # print(e)
-        d = (e - last_error) / time
-        value = e * kp + d * kd
-        motor.drive(speed, value)
-        wait(time * 1000)
-    motor.stop()
-
-def travel_and_lines(speed):
-    while colorLeft.reflection() <= 7:
-        motor.drive(speed)
-
-def move_By_giro_F_S(speed, kd = 0.01, kp = 0.4):
-    gyro.reset_angle(0)
-    motor.reset()
-    last_error = 0
-    time = 0.01
-    def valL():
-        return colorLeft.reflection()
-    def valR():
-        return colorRight.reflection()
-    l = valL()
-    r = valR()
-    while l < 45 or r < 50:
-        e = -gyro.angle()
-        d = (e - last_error) / time
-        value = e * kp + d * kd
-        motor.drive(speed, value)
-        l = valL()
-        r = valR()
-        wait(time * 1000)
-    motor.stop()
-    print("Exit from move_By_giro_F_S on values ", l, r)
-
-# функция езды по гироскопу
 def move_By_ColorLeft(distance, speed = 200, kp = 0.5, kd = 0.1):
     motor.reset()
     last_e = 0
     time = 0.05
     normal = 35
     while abs(motor.distance()) < abs(distance):
-        error = normal - colorLeft.reflection()
+        error = normal - colorRight.reflection()
         d = (error - last_e) / time
         value = error * kp + d * kd
         motor.drive(speed, -value)
@@ -130,7 +93,7 @@ def move_By_ColorRight(distance, speed = 200, kp = 0.5, kd = 0.1):
     time = 0.05
     normal = 35
     while abs(motor.distance()) < abs(distance):
-        error = normal - colorRight.reflection()
+        error = normal - colorLeft.reflection()
         d = (error - last_e) / time
         value = error * kp + d * kd
         motor.drive(speed, value)
@@ -141,9 +104,127 @@ def move_By_ColorRight(distance, speed = 200, kp = 0.5, kd = 0.1):
 def f_l(speed = 100, turn_rate = 10):
     motor.reset()
     motor.drive(speed, turn_rate)
-    while colorLeft.reflection() < 10:
+    while colorRight.reflection() < 40:
         pass
+    print("white on", colorRight.reflection())
+    while colorRight.reflection() > 25:
+        pass
+    print("black on", colorRight.reflection())
+
     motor.stop()
+
+def move_By_ColorRight_for_line(speed = 200, kp = 0.5, kd = 0.1):
+    motor.reset()
+    last_e = 0
+    time = 0.01
+    normal = 30
+    lfindWhite = False
+    lval = 30
+    while lval > 9 or not lfindWhite:
+        lval = colorLeft.reflection()
+        error = normal - colorRight.reflection()
+        d = (error - last_e) / time
+        value = error * kp + d * kd
+        motor.drive(speed, -value)
+        last_e = error
+        if not lfindWhite:
+            lfindWhite = lval > 40
+        wait(time * 1000)
+    motor.stop()
+    print("stop", colorLeft.reflection())
+
+
+
+def move_By_Giro(distance, speed=1000, kp=10, kd=2):
+    gyro.reset_angle(0)
+    motor.reset()
+    last_error = 0
+    time = 0.01
+    while abs(motor.distance()) < abs(distance):
+        e = -gyro.angle()
+        # print(e)
+        d = (e - last_error) / time
+        value = e * kp + d * kd
+        motor.drive(speed, value)
+        wait(time * 1000)
+    motor.stop()
+
+def calibrate_kp_kd(distance=1000, speed=1000, kp_min=0.01, kp_max=0.09, kd_min=0.01, kd_max=0.09, step=0.01):
+    min_deviation = float('inf')  # Минимальное среднее отклонение
+    best_kp = None
+    best_kd = None
+    # Перебираем все комбинации kp и kd в заданных диапазонах
+    kp = kp_min
+    while kp <= kp_max + 0.0001:  # Добавляем маленькую погрешность для корректного сравнения
+        kd = kd_min
+        while kd <= kd_max + 0.0001:
+            print("Тестируем kp=", kp, "kd=", kd)
+            # Сбрасываем гироскоп и мотор перед каждым тестом
+            gyro.reset_angle(0)
+            motor.reset()
+            total_deviation = 0  # Суммарное отклонение в процессе движения
+            sample_count = 0     # Количество измерений
+            # Вызываем функцию движения с текущими значениями kp и kd
+            gyro.reset_angle(0)
+            last_error = 0
+            time_step = 0.01
+            motor.reset()
+            while abs(motor.distance()) < abs(distance):
+                e = -gyro.angle()  # Текущее отклонение по гироскопу
+                d = (e - last_error) / time_step
+                value = e * kp + d * kd
+                motor.drive(speed, value)
+                # Накапливаем отклонение
+                total_deviation += abs(e)
+                sample_count += 1
+                wait(time_step * 1000)
+                last_error = e
+            motor.stop()
+            motor.straight(-distance)
+            # Вычисляем среднее отклонение
+            average_deviation = total_deviation / sample_count
+            print("Среднее отклонение:", average_deviation, "градусов")
+            # Если текущее среднее отклонение меньше минимального, обновляем лучшие параметры
+            if average_deviation < min_deviation:
+                min_deviation = average_deviation
+                best_kp = kp
+                best_kd = kd
+            kd += step
+        kp += step
+    print("\nРекомендуемые значения: kp=", best_kp, "kd=", best_kd)
+    print("Минимальное среднее отклонение:", min_deviation, "градусов")
+
+
+def travel_and_lines(speed):
+    while colorRight.reflection() <= 7:
+        motor.drive(speed)
+
+def move_By_giro_F_S(speed, kd = 0.01, kp = 0.4):
+    gyro.reset_angle(0)
+    motor.reset()
+    last_error = 0
+    time = 0.01
+    def valL():
+        return colorRight.reflection()
+    def valR():
+        return colorLeft.reflection()
+    l = valL()
+    r = valR()
+    while l < 45 or r < 55:
+        e = -gyro.angle()
+        d = (e - last_error) / time
+        value = e * kp + d * kd
+        motor.drive(speed, value)
+        l = valL()
+        r = valR()
+        wait(time * 1000)
+    motor.stop()
+    print("Exit from move_By_giro_F_S on values ", l, r)
+
+# функция езды по гироскопу
+
+
+
         
 def draw_digits(value): 
     global ev3
@@ -257,6 +338,7 @@ def start(races):
             wait(100)
 
         if Button.CENTER in ev3.buttons.pressed():
+            # light_calibrate()
             races[click - 1][podzaezd]()
             click += 1
             podzaezd = 0
