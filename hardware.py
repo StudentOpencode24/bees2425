@@ -1,6 +1,6 @@
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import (Motor, ColorSensor, GyroSensor)
-from pybricks.parameters import Port, Button, Color
+from pybricks.parameters import Port, Button, Color, Stop
 from pybricks.tools import wait
 from pybricks.robotics import DriveBase
 # Create your objects here.
@@ -8,7 +8,11 @@ ev3 = EV3Brick()
 # импорт библиотек
 
 # Write your program here.
-lmot = Motor(Port.B, gears=[28, 20])
+try:
+    lmot = Motor(Port.B, gears=[28, 20])
+except Exception as e:
+    ev3.screen.print("Error port B")
+    ev3.screen.print(e)
 rmot = Motor(Port.C, gears=[28, 20])
 front_m = Motor(Port.A, gears=[12, 20])
 back_m = Motor(Port.D, gears=[12, 20])
@@ -55,7 +59,7 @@ def turn_acc_change(ang, rate = 1000, acc = turn_acceleration):
 def move_speed_change(distance, speed=1000, acc=straight_acceleration):
     motor.stop()
     motor.settings(straight_speed=speed, straight_acceleration=acc)
-    motor.straight(distance)
+    motor.straight(distance)#, then=Stop.HOLD, wait=wait)
     motor.stop()
     motor.settings(straight_speed=1400, straight_acceleration = straight_acceleration)
 
@@ -135,11 +139,13 @@ def move_By_ColorRight_for_line(speed = 200, kp = 0.5, kd = 0.1):
 
 
 
-def move_By_Giro(distance, speed=1000, kp=10, kd=2):
-    gyro.reset_angle(0)
+def move_By_Giro(distance, speed=1000, kp=10, kd=2, acc = straight_acceleration):
     motor.reset()
     last_error = 0
     time = 0.01
+    # motor.settings(straight_speed=speed, straight_acceleration=acc)
+    gyro.reset_angle(0)
+    gyro.reset_angle(0)
     while abs(motor.distance()) < abs(distance):
         e = -gyro.angle()
         # print(e)
@@ -147,7 +153,9 @@ def move_By_Giro(distance, speed=1000, kp=10, kd=2):
         value = e * kp + d * kd
         motor.drive(speed, value)
         wait(time * 1000)
+    # motor.straight(1)
     motor.stop()
+    # motor.settings(straight_speed=1400, straight_acceleration = straight_acceleration)
 
 def calibrate_kp_kd(distance=1000, speed=1000, kp_min=0.01, kp_max=0.09, kd_min=0.01, kd_max=0.09, step=0.01):
     min_deviation = float('inf')  # Минимальное среднее отклонение
@@ -180,7 +188,7 @@ def calibrate_kp_kd(distance=1000, speed=1000, kp_min=0.01, kp_max=0.09, kd_min=
                 wait(time_step * 1000)
                 last_error = e
             motor.stop()
-            motor.straight(-distance)
+            motor.straight(distance)
             # Вычисляем среднее отклонение
             average_deviation = total_deviation / sample_count
             print("Среднее отклонение:", average_deviation, "градусов")
@@ -199,7 +207,7 @@ def travel_and_lines(speed):
     while colorRight.reflection() <= 7:
         motor.drive(speed)
 
-def move_By_giro_F_S(speed, kd = 0.01, kp = 0.4):
+def move_By_giro_F_S(speed, kd = 0.01, kp = 0.4,):
     gyro.reset_angle(0)
     motor.reset()
     last_error = 0
@@ -210,7 +218,8 @@ def move_By_giro_F_S(speed, kd = 0.01, kp = 0.4):
         return colorLeft.reflection()
     l = valL()
     r = valR()
-    while l < 45 or r < 55:
+    
+    while l < 35 or r < 40:
         e = -gyro.angle()
         d = (e - last_error) / time
         value = e * kp + d * kd
@@ -218,7 +227,8 @@ def move_By_giro_F_S(speed, kd = 0.01, kp = 0.4):
         l = valL()
         r = valR()
         wait(time * 1000)
-    motor.stop()
+    
+    # motor.stop()
     print("Exit from move_By_giro_F_S on values ", l, r)
 
 # функция езды по гироскопу

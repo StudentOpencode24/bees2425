@@ -80,17 +80,17 @@ def four1():
     front_m.run_angle(800, -7, wait=0)
     motor.straight(-10)
     motor.straight(350)
-    turn_acc_change(89, rate=1000)
+    turn_acc_change(94, rate=1000)
     # подъезд к зернохранилищу
     motor.straight(273)
     motor.straight(-140)
     motor.turn(-101)
     motor.straight(620)
-    motor.turn(100)
+    motor.turn(110)
     front_m.run_angle(400, 100, wait=0)
-    wait(300)
+    wait(200)
+    move_speed_change(distance=-550, speed=400)
     # сброс инновационного проекта
-    move_speed_change(-550, 400)
     # подъезд к картофелю
     motor.straight(60)
     motor.straight(-150)
@@ -130,7 +130,7 @@ def five():
     back_m.run_angle(1000, -600,  wait= 0)
     # опускание лапы и выдвежение шторок
     motor.straight(-690)
-    motor.straight(155)
+    motor.straight(135)
     motor.turn(92)
     wait(1500)
     motor.straight(170)
@@ -166,13 +166,13 @@ def seven():
     motor.straight(220)
     front_m.run_angle(240, 200)
     wait(500)
-    move_By_Giro(600, -450, 25)
+    move_By_Giro(300, -450, 7, 3)
     # повторное задвижение по гироскопу
     wait(100)
-    motor.straight(20)
-    wait(100)
+    # motor.straight(20)
     front_m.run_angle(240, -200)
     arc(-200, -400, 20)
+    # calibrate_kp_kd(distance=300, speed=-450, kp_min=5, kp_max=10, kd_min=1, kd_max=5, step=1)
 
 
 def eight():
@@ -186,23 +186,24 @@ def eight1():
     motor.straight(350)
 
 def nine1():
-    """последний заезд с иновационном проектом
+    """овощебаза
     """
     motor.straight(-10)
     motor.straight(450)
     f_l(200, 25)
-    move_By_ColorRight_for_line(200, 1.8, 0.14)
-    motor.straight(210)
+    move_By_ColorRight_for_line(200, 1.7, 0.135)
+    motor.straight(360)
     motor.turn(60)
-    motor.straight(370)
-    motor.turn(50)
-    motor.straight(150)
-    move_By_giro_F_S(-200, 0.01, 0.4)
-    move_speed_change(40, 300)
-    back_m.run_angle(450, 200)
-    move_By_Giro(260, 100, 0.01, 0.04)
-    motor.straight(-20)
-    back_m.run_angle(-60, 70)
+    motor.straight(290)
+    motor.turn(30)
+    motor.straight(120)
+    motor.straight(-150)
+    # move_By_giro_F_S(-200, 0.01, 0.4)
+    # move_speed_change(60, 300)
+    # back_m.run_angle(450, 200)
+    # move_By_Giro(260, 80, 0.01, 0.04)
+    # motor.straight(-20)
+    # back_m.run_angle(-60, 70)
 
     
     # maxL, maxR = colorLeft.reflection(), colorRight.reflection()
@@ -210,6 +211,16 @@ def nine1():
     #     print(colorLeft.reflection(), colorRight.reflection())
     # calibrate_kp_kd(distance=100, speed=200, kp_min=0.01, kp_max=0.09, kd_min=0.01, kd_max=0.09, step=0.01)
 
+def ten():
+    back_m.run_angle(1000, 300)
+    motor.straight(-30)
+    motor.straight(712)
+    motor.turn(95)
+    front_m.run_angle(900, 300)
+    move_By_Giro(250, -150, 0.08, 0.06)
+    wait(100)
+    front_m.run_angle(50, -50)
+    motor.straight(30)
 
 def f():
     """завоз обарудования на поле
@@ -226,4 +237,4 @@ def power_down():
     
 
 # start([one, two, three, four, five, six, seven, f, eight])
-start([[one1, one2, one3], [two], [three], [four1, front], [five], [seven], [eight], [eight1], [nine1], [power_down]])
+start([[one1, one2, one3], [two], [three], [four1, front], [five], [seven], [eight], [eight1], [nine1], [ten], [power_down]])
