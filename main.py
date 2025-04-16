@@ -86,8 +86,8 @@ def four1():
     motor.straight(-140)
     motor.turn(-101)
     motor.straight(620)
-    motor.turn(110)
-    front_m.run_angle(400, 100, wait=0)
+    motor.turn(109)
+    front_m.run_angle(450, 150, wait=0)
     wait(200)
     move_speed_change(distance=-550, speed=400)
     # сброс инновационного проекта
@@ -215,12 +215,12 @@ def ten():
     back_m.run_angle(1000, 300)
     motor.straight(-30)
     motor.straight(712)
-    motor.turn(95)
+    motor.turn(90)
     front_m.run_angle(900, 300)
     move_By_Giro(250, -150, 0.08, 0.06)
     wait(100)
-    front_m.run_angle(50, -50)
-    motor.straight(30)
+    front_m.run_angle(50, -100)
+    motor.straight(15)
 
 def f():
     """завоз обарудования на поле
