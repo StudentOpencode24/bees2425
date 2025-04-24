@@ -7,31 +7,66 @@ from pybricks.robotics import DriveBase
 ev3 = EV3Brick()
 # импорт библиотек
 
-# Write your program here.
-try:
-    lmot = Motor(Port.B, gears=[28, 20])
-except Exception as e:
-    ev3.screen.print("Error port B")
-    ev3.screen.print(e)
-rmot = Motor(Port.C, gears=[28, 20])
-front_m = Motor(Port.A, gears=[12, 20])
-back_m = Motor(Port.D, gears=[12, 20])
-motor = DriveBase(lmot, rmot, 49.5, 119)
-gyro = GyroSensor(Port.S3)
-colorLeft = ColorSensor(Port.S2)
-colorRight = ColorSensor(Port.S1)
-
 # задаём порты 
 
 turn_acceleration = 500
 straight_acceleration = 600
+
+# Write your program here.
+devices_ok = True
+try:
+    lmot = Motor(Port.B, gears=[28, 20])
+except Exception as e:
+    ev3.screen.print("Error left\nmotor")
+    devices_ok = False
+
+try:
+    rmot = Motor(Port.C, gears=[28, 20])
+except Exception  as e:
+    ev3.screen.print("Error right\nmotor")
+    devices_ok = False
+
+try:
+    front_m = Motor(Port.A, gears=[12, 20])
+except Exception as e:
+    ev3.screen.print("Error front\nmotor")
+    devices_ok = False
+
+try:
+    back_m = Motor(Port.D, gears=[12, 20])
+except Exception as e:
+    ev3.screen.print("Error back\nmotor")
+    devices_ok = False
+
+
+if devices_ok:
+    motor = DriveBase(lmot, rmot, 49.5, 119)
+    motor.settings(straight_speed=1000, straight_acceleration=straight_acceleration, turn_rate=200, turn_acceleration=turn_acceleration)
+
+try:
+    gyro = GyroSensor(Port.S3)
+except Exception as e:
+    ev3.screen.print("Error gyro")
+    devices_ok = False
+
+try:
+    colorLeft = ColorSensor(Port.S2)
+except Exception as e:
+    ev3.screen.print("Error color\nleft")
+    devices_ok = False
+    
+try:
+    colorRight = ColorSensor(Port.S1)
+except Exception as e:
+    ev3.screen.print("Error color\nright")
+    devices_ok = False
+
 
 def light_calibrate():
     colorRight.calibrate_white()
     colorRight.calibrate_white()
 
 
-motor.settings(straight_speed=1000, straight_acceleration=straight_acceleration, turn_rate=200, turn_acceleration=turn_acceleration)
 # настройки моторов
 
 def t(l = 50, r = 50, speed = 500):
@@ -65,12 +100,12 @@ def move_speed_change(distance, speed=1000, acc=straight_acceleration):
 
 # функция проезда с задаваемой скоростью и возможностью плавного тормажения и ускорения 
 
-def turn_by_giro(turn_distance, speed=100):
+def turn_by_giro(angle, speed=100):
     gyro.reset_angle(0)
     motor.reset()
     motor.drive(0,speed)
-    g = gyro()
-    if g == turn_distance():
+    g = gyro.angle()
+    if g == angle():
         motor.stop()
 
 # функция поорота по гироскопу
@@ -81,7 +116,7 @@ def move_By_ColorLeft(distance, speed = 200, kp = 0.5, kd = 0.1):
     time = 0.05
     normal = 35
     while abs(motor.distance()) < abs(distance):
-        error = normal - colorRight.reflection()
+        error = normal - colorLeft.reflection()
         d = (error - last_e) / time
         value = error * kp + d * kd
         motor.drive(speed, -value)
@@ -97,7 +132,7 @@ def move_By_ColorRight(distance, speed = 200, kp = 0.5, kd = 0.1):
     time = 0.05
     normal = 35
     while abs(motor.distance()) < abs(distance):
-        error = normal - colorLeft.reflection()
+        error = normal - colorRight.reflection()
         d = (error - last_e) / time
         value = error * kp + d * kd
         motor.drive(speed, value)
@@ -111,7 +146,7 @@ def f_l(speed = 100, turn_rate = 10):
     while colorRight.reflection() < 40:
         pass
     print("white on", colorRight.reflection())
-    while colorRight.reflection() > 25:
+    while colorRight.reflection() > 35:
         pass
     print("black on", colorRight.reflection())
 
@@ -307,7 +342,13 @@ def draw_digits(value):
 def start(races):
     click = 1
     podzaezd = 0
+
+    if not devices_ok:
+        wait(10000)
+        return
+    
     draw_digits(click * 10 + podzaezd)
+
     while True:
         while not Button.CENTER in ev3.buttons.pressed():
             if Button.LEFT in ev3.buttons.pressed():
@@ -351,6 +392,8 @@ def start(races):
             # light_calibrate()
             races[click - 1][podzaezd]()
             click += 1
+            if click > len(races):
+                click = 1
             podzaezd = 0
             draw_digits(click * 10 + podzaezd)
 

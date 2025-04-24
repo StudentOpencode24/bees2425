@@ -16,6 +16,7 @@ def one1():
     motor.turn(7)
     back_m.run_angle(200, -105) #сбор плуга и скотча
     motor.straight(270) #возвращение в зону
+    motor.turn(-10)
 
 def one2():
     """первый заезд без типлицы
@@ -41,15 +42,15 @@ def two():
     """заезд с пшеницей
     """
     motor.straight(-20)
-    back_m.run_angle(100, -90,wait = 0)
+    back_m.run_angle(100, -90, wait=0)
     # поднятие лапы
     motor.straight(740)
     motor.turn(93)
-    move_speed_change(80, 900)
+    move_speed_change(100, 900, 800)
     # подъезд к пшенице
     back_m.run_angle(1000, 85)
     # сбор ящика
-    motor.straight(-15)
+    motor.straight(-10)
     motor.turn(-90)
     motor.straight(-900)
     # возвращение в зону
@@ -60,15 +61,14 @@ def three():
     motor.straight(-30)
     motor.straight(265)
     # выезд из зоны
-    motor.turn(-65)
+    motor.turn(-63)
     motor.straight(95)
-    motor.turn(-31)
+    turn_acc_change(-30.5, 100)
     move_speed_change(400, 700)
     # подъезд к яблокам
     motor.straight(-100)
     move_speed_change(600, 1000, 1000)
     # 
-    wait(1000)
     motor.straight(-130)
     motor.turn(90)
     motor.straight(-270)
@@ -79,28 +79,30 @@ def four1():
     """
     front_m.run_angle(800, -7, wait=0)
     motor.straight(-10)
-    motor.straight(350)
-    turn_acc_change(94, rate=1000)
+    motor.straight(355)
+    turn_acc_change(93, rate=1000)
     # подъезд к зернохранилищу
     motor.straight(273)
     motor.straight(-140)
     motor.turn(-101)
-    motor.straight(620)
-    motor.turn(109)
-    front_m.run_angle(450, 150, wait=0)
-    wait(200)
+    motor.straight(600)
+    motor.turn(106)
+    front_m.run_angle(600, 150, wait=0)
+    wait(350)
     move_speed_change(distance=-550, speed=400)
+    arc(200, 2, 2)
+    arc(200, -2, 2)
     # сброс инновационного проекта
     # подъезд к картофелю
     motor.straight(60)
     motor.straight(-150)
-    move_speed_change(105, 400)
+    move_speed_change(103, 400)
     # подъезд к комбайну
     back_m.run_angle(800, -1520)
     back_m.run_angle(1000, 1960, wait=0)
     wait(500)
-    motor.straight(90)
-    motor.turn(-87)
+    motor.straight(70)
+    turn_acc_change(-87, 500)
     # поворот к зоне
     motor.straight(600)
     motor.turn(-10)
@@ -130,17 +132,17 @@ def five():
     back_m.run_angle(1000, -600,  wait= 0)
     # опускание лапы и выдвежение шторок
     motor.straight(-690)
-    motor.straight(135)
+    motor.straight(140)
     motor.turn(92)
     wait(1500)
-    motor.straight(170)
+    move_speed_change(170, 1000, 1000)
     # подъезд к трактору
     front_m.run_angle(3500, 1600)
     back_m.run_angle(1000, 600, wait=0)
     motor.turn(20)
     motor.straight(-145)
     front_m.run_angle(4000, 1000, wait=0)
-    motor.turn(90)
+    motor.turn(88)
     motor.straight(-800)
     # заезд в красную зону
 
@@ -188,15 +190,12 @@ def eight1():
 def nine1():
     """овощебаза
     """
-    motor.straight(-10)
-    motor.straight(450)
-    f_l(200, 25)
-    move_By_ColorRight_for_line(200, 1.7, 0.135)
-    motor.straight(360)
+    motor.straight(-30)
+    motor.straight(1270)
     motor.turn(60)
-    motor.straight(290)
-    motor.turn(30)
-    motor.straight(120)
+    motor.straight(260)
+    motor.turn(36)
+    motor.straight(160)
     motor.straight(-150)
     # move_By_giro_F_S(-200, 0.01, 0.4)
     # move_speed_change(60, 300)
@@ -212,26 +211,29 @@ def nine1():
     # calibrate_kp_kd(distance=100, speed=200, kp_min=0.01, kp_max=0.09, kd_min=0.01, kd_max=0.09, step=0.01)
 
 def ten():
-    back_m.run_angle(1000, 300)
     motor.straight(-30)
-    motor.straight(712)
-    motor.turn(90)
-    front_m.run_angle(900, 300)
-    move_By_Giro(250, -150, 0.08, 0.06)
-    wait(100)
-    front_m.run_angle(50, -100)
-    motor.straight(15)
+    back_m.run_angle(400, -100, wait=0)
+    motor.straight(345)
+    move_By_ColorLeft(200, 200, 0.45, 0.07)
+    motor.straight(1)
+    turn_acc_change(-90, 100)
+    motor.straight(-55)
+    back_m.run_angle(400, 150)
+    move_speed_change(240, 200)
+    motor.straight(-30)
+    back_m.run_angle(50, -70)
+    # motor.straight(-100)
 
 def f():
-    """завоз обарудования на поле
+    """завоз оборудования на поле
     """
     motor.straight(300)
     motor.straight(-300)
 
 def power_down():
     pass
-#     while True:
-#         move_speed_change(1000, 1000, 1000)
+    while True:
+        move_speed_change(1000, 1000, 1000)
 
         
     
